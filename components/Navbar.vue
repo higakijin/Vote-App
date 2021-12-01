@@ -55,7 +55,7 @@
           <button @click="logout" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-600 hover:bg-white mt-4 lg:mt-0 hover:cursor-pointer">ログアウト</button>
         </div>
         <div v-else>
-          <nuxt-link to="/users/auth" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-600 hover:bg-white mt-4 lg:mt-0">
+          <nuxt-link to="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-600 hover:bg-white mt-4 lg:mt-0">
             ログイン
           </nuxt-link>
         </div>
