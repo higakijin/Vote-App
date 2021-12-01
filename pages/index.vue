@@ -1,7 +1,6 @@
 <template>
   <div>
     <Navbar />
-    <p>{{ $config.apiURL }}</p>
   </div>
 
 </template>
