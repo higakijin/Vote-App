@@ -69,17 +69,16 @@
         ログインしていません
       </div>
     </div>
-    <p>環境変数は、{{ apiUrl }}です</p>
   </div>
 </template>
 
 <script>
+console.log("環境変数は"+ process.env.apiUrl + "です。");
 export default {
   data() {
     return {
       name: '',
       isCurrentUser: false,
-      apiUrl: process.env.apiUrl
     }
   }
 }
