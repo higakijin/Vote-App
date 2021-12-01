@@ -8,6 +8,9 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 export default {
-  components: { Navbar }
+  components: { Navbar },
+  mounted() {
+    console.log(this.$config.apiURL)// ローカルでは3000になってます
+  }
 }
 </script>

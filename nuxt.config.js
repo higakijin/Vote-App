@@ -41,7 +41,7 @@ export default {
 
   buildModules: ['@nuxtjs/tailwindcss'],
 
-  env: {
-    apiUrl: process.env.API_URL
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL|| "http://localhost:3000",
   }
 }

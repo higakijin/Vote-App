@@ -73,7 +73,6 @@
 </template>
 
 <script>
-console.log("環境変数は"+ process.env.apiUrl + "です。");
 export default {
   data() {
     return {
