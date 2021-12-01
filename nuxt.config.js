@@ -39,5 +39,9 @@ export default {
   build: {
   },
 
-  buildModules: ['@nuxtjs/tailwindcss']
+  buildModules: ['@nuxtjs/tailwindcss'],
+
+  env: {
+    apiUrl: process.env.API_URL
+  }
 }

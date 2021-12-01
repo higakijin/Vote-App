@@ -69,6 +69,7 @@
         ログインしていません
       </div>
     </div>
+    <p>環境変数は、{{ apiUrl }}です</p>
   </div>
 </template>
 
@@ -77,7 +78,8 @@ export default {
   data() {
     return {
       name: '',
-      isCurrentUser: false 
+      isCurrentUser: false,
+      apiUrl: process.env.apiUrl
     }
   }
 }
