@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'VoteApp',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -33,7 +33,12 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    "@nuxtjs/axios",
   ],
+
+  axios: {
+    baseURL: process.env.API_URL
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -41,6 +46,7 @@ export default {
 
   buildModules: ['@nuxtjs/tailwindcss'],
 
+  //これ不要かも
   publicRuntimeConfig: {
     apiURL: process.env.API_URL|| "http://localhost:3000",
   }
