@@ -1,7 +1,7 @@
 <template>
   <div v-show="isCurrentUser">
     <div>
-      <button @click='showCreateForm = !showCreateForm' class="bg-green-500 p-3 rounded-full right fixed bottom-10 right-20">
+      <button @click='showCreateForm = !showCreateForm' class="bg-green-500 p-3 rounded-full right fixed bottom-10 right-10">
         <svg xmlns="http://www.w3.org/2000/svg" style="width: 30px; height: 30px; fill: white;" viewBox="0 0 200.008 200"><g transform="translate(-14.955 -264.331)"><path d="M164,264.331,33.768,394.567l50.959,50.959L214.963,315.29ZM20.59,408.165l-4.175,53.46-1.46,1.46,1.36-.1-.117,1.35,1.46-1.459,53.469-4.165Z" transform="translate(0 0)"/></g></svg>
       </button>
     </div>

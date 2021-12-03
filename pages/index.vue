@@ -2,8 +2,9 @@
   <div class='relative'>
     <Navbar />
     <div class="grid grid-cols-7 gap-4">
-      <div class="col-span-1"></div>
-      <div class="col-span-4">
+      <div class="col-span-7 xl:col-span-1 lg:col-span-1">
+      </div>
+      <div class="col-span-7 xl:col-span-4 lg:col-span-4">
         <section class="text-gray-600 body-font overflow-hidden">
           <div class="container px-5 py-12 mx-auto">
             <div class="-my-8 divide-y-2 divide-gray-100">
@@ -46,7 +47,7 @@
           </div>
         </section>
       </div>
-      <div class="col-span-2">
+      <div class="col-span-7 xl:col-span-2 lg:col-span-2">
         <createForm />
       </div>
     </div>
