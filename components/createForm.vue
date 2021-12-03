@@ -1,13 +1,13 @@
 <template>
   <div v-show="isCurrentUser">
-    <div class="flex justify-end">
-      <button @click='showCreateForm = !showCreateForm' class="bg-green-500 p-3 rounded-full right">
+    <div>
+      <button @click='showCreateForm = !showCreateForm' class="bg-green-500 p-3 rounded-full right fixed bottom-10 right-20">
         <svg xmlns="http://www.w3.org/2000/svg" style="width: 30px; height: 30px; fill: white;" viewBox="0 0 200.008 200"><g transform="translate(-14.955 -264.331)"><path d="M164,264.331,33.768,394.567l50.959,50.959L214.963,315.29ZM20.59,408.165l-4.175,53.46-1.46,1.46,1.36-.1-.117,1.35,1.46-1.459,53.469-4.165Z" transform="translate(0 0)"/></g></svg>
       </button>
     </div>
     <div>
-      <div v-show='showCreateForm' @click.self='showCreateForm = !showCreateForm' class="flex justify-center h-screen items-center bg-gray-500 bg-opacity-75 antialiased top-0 left-0 absolute w-full">
-        <form @submit.prevent="createTopic" class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl">
+      <div v-show='showCreateForm' @click.self='showCreateForm = !showCreateForm' class="fixed flex justify-center items-center bg-gray-500 bg-opacity-75 antialiasedv top-0 left-0 absolute w-full h-full">
+        <form @submit.prevent="createTopic" class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl fixed top-40">
           <div
             class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
           >

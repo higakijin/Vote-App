@@ -37,18 +37,13 @@
           <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
             Blog
           </a>
-          <!-- <router-link to="/posts/new"
-            class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            :class="this.$route.path==='/posts/new' ? 'text-white' : '' "
-          >
-            投稿する
-          </router-link>
-          <router-link to="/posts/unpublished"
+
+          <!-- <router-link to="/posts/unpublished"
             class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' "
           >
             下書き一覧
-          </router-link> -->
+          </router-link>  -->
         </div>
 
         <div v-if="isCurrentUser">

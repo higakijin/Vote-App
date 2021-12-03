@@ -22,6 +22,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/moment-filter.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,7 +45,15 @@ export default {
   build: {
   },
 
-  buildModules: ['@nuxtjs/tailwindcss'],
+  buildModules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/moment'
+  ],
+
+  moment: {
+    locales: ['ja']
+  },
+  
 
   //これ不要かも
   publicRuntimeConfig: {
