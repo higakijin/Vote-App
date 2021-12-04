@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fixed w-full">
     <nav class="flex items-center justify-between flex-wrap bg-green-500 p-4">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <nuxt-link to="/" class="flex">

@@ -6,7 +6,7 @@
       </div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4">
         <section class="text-gray-600 body-font overflow-hidden">
-          <div class="container px-5 py-12 mx-auto">
+          <div class="container px-5 pt-32 pb-12 mx-auto">
             <div class="-my-8 divide-y-2 divide-gray-100">
               <div v-for='post in posts' :key='post.id'>
                 <div class="py-8 flex flex-wrap md:flex-nowrap">
