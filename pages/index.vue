@@ -33,16 +33,20 @@
                         </div>
                       </div> -->
                       <div class="w-full flex">
-                        <div class="bg-blue-500 rounded-l-lg" :style="{width: `${agree_rate}%`}" >
-                          <p class="flex justify-center text-white">
-                            {{ agree_rate }}%
-                          </p>
-                        </div>
-                        <div class="bg-red-500 rounded-r-lg" :style="{width: `${disagree_rate}%`}">
-                          <p class="flex justify-center text-white">
-                            {{ disagree_rate }}%
-                          </p>
-                        </div>
+                        <transition name="agree_bar">
+                          <div v-show="show" class="bg-blue-600 rounded-l-lg min-w-min" :style="{width: `${agree_rate}%`}">
+                            <p class="flex justify-center text-white">
+                              {{ agree_rate }}%
+                            </p>
+                          </div>
+                        </transition>
+                        <transition name="disagree_bar">
+                          <div v-show="show" class="bg-red-500 rounded-r-lg min-w-min" :style="{width: `${disagree_rate}%`}">
+                            <p class="flex justify-center text-white">
+                              {{ disagree_rate }}%
+                            </p>
+                          </div>
+                        </transition>
                       </div>
 
                       <nuxt-link :to='`/posts/${post.id}`' class="text-green-500 inline-flex items-center mt-4 w-full">
@@ -77,8 +81,10 @@ export default {
     return {
       showCreateForm: false,
       posts: [],
-      agree_rate: 50,
-      disagree_rate: 50
+      agree_rate: 42,
+      disagree_rate: 58,
+
+      show: false
     }
   },
   methods: {
@@ -96,6 +102,28 @@ export default {
   },
   mounted() {
     this.getPosts()
+  },
+  updated() {
+    this.show = true
   }
 }
 </script>
+
+<style scoped>
+.agree_bar-enter {
+  transform: translateX(-60%);
+}
+.agree_bar-enter-to {
+  transform: translateX(0);
+}
+.disagree_bar-enter {
+  transform: translateX(60%);
+}
+.disagree_bar-enter-to {
+  transform: translateX(0);
+}
+.agree_bar-enter-active, .disagree_bar-enter-active {
+  transition: all 1s ease;
+}
+
+</style>
