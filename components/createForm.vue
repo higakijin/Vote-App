@@ -100,7 +100,11 @@ export default {
           new Error('投稿できませんでした')
         }
         if (!this.error) {
-          this.$router.go('/')
+          if (this.$route.path === "/") {
+            this.$router.go('/')  
+          } else {
+            this.$router.push('/')
+          }
         }
         this.error = null
         return res
