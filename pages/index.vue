@@ -32,6 +32,19 @@
                           <p v-if="tag.name !== post.tags.slice(-1)[0].name" class="mr-2">,</p>
                         </div>
                       </div> -->
+                      <div class="w-full flex">
+                        <div class="bg-blue-500 rounded-l-lg" :style="{width: `${agree_rate}%`}" >
+                          <p class="flex justify-center text-white">
+                            {{ agree_rate }}%
+                          </p>
+                        </div>
+                        <div class="bg-red-500 rounded-r-lg" :style="{width: `${disagree_rate}%`}">
+                          <p class="flex justify-center text-white">
+                            {{ disagree_rate }}%
+                          </p>
+                        </div>
+                      </div>
+
                       <nuxt-link :to='`/posts/${post.id}`' class="text-green-500 inline-flex items-center mt-4 w-full">
                         Learn More
                         <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -56,7 +69,6 @@
 
 <script>
 import Navbar from '../components/Navbar.vue'
-// import moment from 'moment'
 import createForm from '../components/createForm.vue'
 
 export default {
@@ -64,7 +76,9 @@ export default {
   data() {
     return {
       showCreateForm: false,
-      posts: []
+      posts: [],
+      agree_rate: 50,
+      disagree_rate: 50
     }
   },
   methods: {
