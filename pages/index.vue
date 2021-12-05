@@ -32,8 +32,8 @@
                       </div> -->
 
                       <div v-if="isLogin" class="flex">
-                        <button class="hover:bg-blue-600 hover:text-white px-2 rounded-full text-blue-500 border border-blue-500">No</button>
-                        <button class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full text-red-500 border border-red-500">Yes</button>
+                        <button @click="vote(post, false)" class="hover:bg-blue-600 hover:text-white px-2 rounded-full text-blue-500 border border-blue-500">No</button>
+                        <button @click="vote(post, true)" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full text-red-500 border border-red-500">Yes</button>
                       </div>
                       <nuxt-link :to='`/posts/${post.id}`'>
                         <rateBar :agree_rate="agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="disagree_rate(post.agree_count, post.disagree_count)"/>
@@ -107,14 +107,27 @@ export default {
       return agree_rate
     },
     disagree_rate(agree_count, disagree_count) {
-      // let disagree_rate = disagree_count/(agree_count + disagree_count) * 100
-      // return Math.round(disagree_rate)
       return 100 - this.agree_rate(agree_count, disagree_count)
     },
+    async vote(post, judge) {
+      try {
+        const res = await this.$axios.$post(`/api/posts/${post.id}/votes`, {
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            id: post.id,
+            is_agree: judge
+          }
+        })
+      } catch(error) {
+        console.log(error)
+      }
+    }
   },
   mounted() {
     this.getPosts()
     this.loginJudge()
-  }
+  },
 }
 </script>

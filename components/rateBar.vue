@@ -11,7 +11,7 @@
     </div>
     <div v-else-if="agree_rate === 100" class="w-full flex">
       <transition name="agree_bar">
-        <div v-show="showBar" class="bg-red-500 rounded-lg min-w-min"  :style="{width: `${agree_rate}%`}">
+        <div v-show="showBar" class="bg-red-500 rounded-lg min-w-min" :style="{width: `${agree_rate}%`}">
           <p class="flex justify-center text-white">
             {{ agree_rate }}%
           </p>
@@ -34,7 +34,7 @@
         </div>
       </transition>
       <transition name="agree_bar">
-        <div v-show="showBar" class="bg-red-500 rounded-r-lg min-w-min"  :style="{width: `${agree_rate}%`}">
+        <div v-show="showBar" class="bg-red-500 rounded-r-lg min-w-min" :style="{width: `${agree_rate}%`}">
           <p class="flex justify-center text-white">
             {{ agree_rate }}%
           </p>
