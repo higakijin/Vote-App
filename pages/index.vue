@@ -56,7 +56,7 @@
         </section>
       </div>
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
-        <createForm />
+        <createForm @getPosts="getPosts"/>
       </div>
     </div>
   </div>
@@ -120,6 +120,7 @@ export default {
             is_agree: judge
           }
         })
+        this.getPosts()
       } catch(error) {
         console.log(error)
       }
@@ -128,6 +129,6 @@ export default {
   mounted() {
     this.getPosts()
     this.loginJudge()
-  },
+  }
 }
 </script>

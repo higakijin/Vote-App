@@ -101,7 +101,9 @@ export default {
         }
         if (!this.error) {
           if (this.$route.path === "/") {
-            this.$router.go('/')  
+            this.showCreateForm = false
+            this.$emit('getPosts')
+            window.scrollTo(0, 0)
           } else {
             this.$router.push('/')
           }
