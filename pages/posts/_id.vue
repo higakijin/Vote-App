@@ -4,7 +4,7 @@
     <div class="grid grid-cols-7 gap-4">
       <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4 pt-36 px-5 pb-12">
-        <h1 class="text-4xl font-sans mb-3">{{ post.topic }}</h1>
+        <h1 class="text-3xl font-medium font-medium mb-3">{{ post.topic }}</h1>
         <rateBar :agree_rate="agree_rate" :disagree_rate="disagree_rate"/>
         <div class="flex items-center mt-2">
           <p class="font-semibold title-font text-gray-700mr-3">by {{ post.name }}</p>
