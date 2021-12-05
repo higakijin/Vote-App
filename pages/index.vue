@@ -83,7 +83,10 @@ export default {
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }
-        this.posts = res.filter((v) => v.is_published).reverse()
+        console.log(res)
+        this.posts = res
+                    .filter((v) => v.is_published)
+                    .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
       } catch(error) {
         console.log(error);
       }
