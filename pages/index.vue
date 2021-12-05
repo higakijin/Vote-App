@@ -32,8 +32,8 @@
                       </div> -->
 
                       <div v-if="isLogin" class="flex">
-                        <button @click="vote(post, false)" class="hover:bg-blue-600 hover:text-white px-2 rounded-full text-blue-500 border border-blue-500">No</button>
-                        <button @click="vote(post, true)" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full text-red-500 border border-red-500">Yes</button>
+                        <button @click="vote(post, false)" class="hover:bg-blue-600 hover:text-white px-2 rounded-full border border-blue-500" :class="already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
+                        <button @click="vote(post, true)" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
                       </div>
                       <nuxt-link :to='`/posts/${post.id}`'>
                         <rateBar :agree_rate="agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="disagree_rate(post.agree_count, post.disagree_count)"/>
@@ -73,7 +73,7 @@ export default {
     return {
       showCreateForm: false,
       posts: [],
-      isLogin: false
+      isLogin: false,
     }
   },
   methods: {
@@ -83,7 +83,6 @@ export default {
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }
-        console.log(res)
         this.posts = res
                     .filter((v) => v.is_published)
                     .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
@@ -127,11 +126,24 @@ export default {
       } catch(error) {
         console.log(error)
       }
-    }
+    },
+    already_posted(votes, boolean) {
+      let judge = null
+      votes.some((e)=> {
+        if (e.is_agree === boolean && e.uid === window.localStorage.getItem('uid')) {
+          judge = true
+          return true // ここでtrueを返すことでsome内の処理を終了させる
+        } else {
+          judge =  false
+        }
+      })
+      return judge
+    },
   },
   mounted() {
     this.getPosts()
     this.loginJudge()
+    
   }
 }
 </script>
