@@ -58,7 +58,7 @@
                         </div>
                       </div> -->
                     <div class="md:flex-grow">
-                      <div v-if="isLogin" class="flex">
+                      <div v-if="$isLogin()" class="flex">
                         <button @click="vote(post, false)" class="hover:bg-blue-600 hover:text-white px-2 rounded-full border border-blue-500" :class="already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
                         <button @click="vote(post, true)" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
                       </div>
@@ -100,7 +100,6 @@ export default {
     return {
       showCreateForm: false,
       posts: [],
-      isLogin: false,
     }
   },
   methods: {
@@ -115,13 +114,6 @@ export default {
                     .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
       } catch(error) {
         console.log(error);
-      }
-    },
-    loginJudge() {
-      if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
-        this.isLogin = true
-      } else {
-        this.isLogin = false
       }
     },
     agree_rate(agree_count, disagree_count) {
@@ -169,8 +161,6 @@ export default {
   },
   mounted() {
     this.getPosts()
-    this.loginJudge()
-    
   }
 }
 </script>
