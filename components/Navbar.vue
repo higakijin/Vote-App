@@ -128,8 +128,6 @@ export default {
       }
     }
   },
-  created() {
-  },
   mounted () {
     this.name = window.localStorage.getItem('name')
     this.loginJudge ()

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mt-2">
+  <div class="flex mt-2 w-full">
     <div v-if="disagree_rate === 100" class="w-full flex">
       <transition name="disagree_bar">
         <div v-show="showBar" class="bg-blue-600 rounded-lg min-w-min" :style="{width: `${disagree_rate}%`}">
@@ -59,19 +59,19 @@ export default {
 </script>
 
 <style scoped>
-.disagree_bar-enter {
-  transform: translateX(-60%);
+/* .disagree_bar-enter {
+  transform: translateX(-30%);
 }
 .disagree_bar-enter-to {
   transform: translateX(0);
 }
 .agree_bar-enter {
-  transform: translateX(60%);
+  transform: translateX(30%);
 }
 .agree_bar-enter-to {
   transform: translateX(0);
 }
 .agree_bar-enter-active, .disagree_bar-enter-active {
   transition: all 1s ease;
-}
+} */
 </style>
