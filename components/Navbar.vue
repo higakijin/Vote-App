@@ -119,18 +119,20 @@ export default {
       } else {
         this.isEnable = true
       }
-    }
-  },
-  mounted () {
-    this.name = window.localStorage.getItem('name')
-    const loginJudge = () => {
+    },
+    loginJudge() {
       if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
         this.isCurrentUser = true
       } else {
         this.isCurrentUser = false
       }
     }
-    loginJudge ()
+  },
+  created() {
+  },
+  mounted () {
+    this.name = window.localStorage.getItem('name')
+    this.loginJudge ()
     this.calculateWindowWidth()
     window.addEventListener('resize', this.calculateWindowWidth)
   },
