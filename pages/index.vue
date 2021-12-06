@@ -41,7 +41,7 @@
                     </div>
                     <div class="md:flex-grow">
                       <nuxt-link :to='`/posts/${post.id}`' class='w-full'>
-                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2 truncate">
+                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">
                           {{ post.topic }}
                         </h2>
                       </nuxt-link>
