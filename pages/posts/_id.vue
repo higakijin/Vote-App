@@ -5,8 +5,8 @@
       <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4 pt-36 mx-5 pb-12">
         <div class="flex">
-          <h1 class="text-2xl font-medium font-medium mb-3 w-5/6 break-words">{{ post.topic }}</h1>
-          <div class="justify-end my-auto flex w-1/6">
+          <h1 class="text-2xl font-medium font-medium mb-3 w-11/12 break-words">{{ post.topic }}</h1>
+          <div class="justify-end my-auto flex w-1/12">
             <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="height: 30px; width: 30px; opacity: 1;" xml:space="preserve">
               <style type="text/css">
                 .st0{fill:#4B4B4B;}

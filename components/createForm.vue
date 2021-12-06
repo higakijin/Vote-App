@@ -102,6 +102,7 @@ export default {
         if (!this.error) {
           if (this.$route.path === "/") {
             this.showCreateForm = false
+            this.topic = ""
             this.$emit('getPosts')
             window.scrollTo(0, 0)
           } else {
