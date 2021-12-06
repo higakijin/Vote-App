@@ -28,13 +28,17 @@
                   v-15.398c0-14.524-9.986-26.66-23.466-30.034v-4.428h180.272V485.443z" style="fill: rgba(0, 0, 0, 0.73);"></path>
               </g>
             </svg>
-            <p class="ml-1 my-auto">{{ post.votes.length }}</p>
+            <p class="ml-1 my-auto">{{ votes_length }}</p>
           </div>
         </div>
         <rateBar :agree_rate="agree_rate" :disagree_rate="disagree_rate"/>
         <div class="flex items-center mt-2">
           <p class="font-semibold title-font text-gray-700mr-3">by {{ post.name }}</p>
           <p class="mt-1 text-gray-500 text-sm ml-auto">{{ post.created_at | moment }}</p>
+        </div>
+        <div v-show="$isLogin()" class="mt-5 flex w-full gap-x-4">
+          <button @click="vote(post, false)" class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
+          <button @click="vote(post, true)" class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
         </div>
       </div>
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
@@ -51,29 +55,57 @@ import createForm from '../../components/createForm.vue'
 
 export default {
   components: { Navbar, createForm, rateBar },
-  async asyncData({ $axios, params }) {
-    try {
-      const res = await $axios.$get(`/api/posts/${params.id}`)
-      if (!res) {
-        new Error('メッセージを取得できませんでした。')
-      }
-      let agree_rate = res.agree_count/(res.agree_count + res.disagree_count) * 100
-      if (agree_rate > 0 && agree_rate <= 1 ) {
-        agree_rate = 1
-      } else if (agree_rate < 100 && agree_rate >= 99) {
-        agree_rate = 99
-      } else {
-        agree_rate = Math.round(agree_rate)
-      }
-      let disagree_rate = 100 - agree_rate
-      return {post: res, agree_rate, disagree_rate}
-    } catch (error) {
-      console.log(error)
-    }
-  },
   data() {
     return {
+      post: '',
+      agree_rate: 0,
+      disagree_rate: 0,
+      votes_length: 0
     }
+  },
+  methods: {
+    async getPost() {
+      try {
+        const res = await this.$axios.$get(`/api/posts/${this.$route.params.id}`)
+        if (!res) {
+          new Error('メッセージを取得できませんでした。')
+        }
+        let agree_rate = res.agree_count/(res.agree_count + res.disagree_count) * 100
+        if (agree_rate > 0 && agree_rate <= 1 ) {
+          agree_rate = 1
+        } else if (agree_rate < 100 && agree_rate >= 99) {
+          agree_rate = 99
+        } else {
+          agree_rate = Math.round(agree_rate)
+        }
+        let disagree_rate = 100 - agree_rate
+        this.post = res
+        this.agree_rate = agree_rate
+        this.disagree_rate = disagree_rate
+        this.votes_length = this.post.votes.length
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async vote(post, judge) {
+      try {
+        const res = await this.$axios.$post(`/api/posts/${post.id}/votes`, {
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            id: post.id,
+            is_agree: judge
+          }
+        })
+        this.getPost()
+      } catch(error) {
+        console.log(error)
+      }
+    },
+  },
+  created() {
+    this.getPost()
   }
 }
 </script>

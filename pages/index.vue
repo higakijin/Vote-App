@@ -46,25 +46,13 @@
                         </h2>
                       </nuxt-link>
                     </div>
-                      <!-- <div class="flex">
-                        <div class="px-1" v-if="post.tags.length > 0">
-                          <font-awesome-icon icon="tags" />
-                        </div>
-                        <div v-for="tag in post.tags" :key="tag.id" class="flex">
-                          <nuxt-link :to='`/posts/tags/${tag.name}`' class="hover:underline">
-                            {{ tag.name }}
-                          </nuxt-link>
-                          <p v-if="tag.name !== post.tags.slice(-1)[0].name" class="mr-2">,</p>
-                        </div>
-                      </div> -->
                     <div class="md:flex-grow">
-                      <div v-if="$isLogin()" class="flex">
-                        <button @click="vote(post, false)" class="hover:bg-blue-600 hover:text-white px-2 rounded-full border border-blue-500" :class="already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
-                        <button @click="vote(post, true)" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
+                      <div v-show="$isLogin()" class="flex">
+                        <button @click="vote(post, false)" class="hover:bg-blue-600 hover:text-white px-2 rounded-full border border-blue-500" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
+                        <button @click="vote(post, true)" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
                       </div>
                       <nuxt-link :to='`/posts/${post.id}`'>
                         <rateBar :agree_rate="agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="disagree_rate(post.agree_count, post.disagree_count)"/>
-
                         <div class="flex items-center mt-2">
                           <p class="mt-1 text-gray-500 text-sm">{{ post.created_at | moment }}</p>
                           <p class="ml-auto text-green-500">Show More</p>
@@ -145,19 +133,7 @@ export default {
       } catch(error) {
         console.log(error)
       }
-    },
-    already_posted(votes, boolean) {
-      let judge = null
-      votes.some((e)=> {
-        if (e.is_agree === boolean && e.uid === window.localStorage.getItem('uid')) {
-          judge = true
-          return true // ここでtrueを返すことでsome内の処理を終了させる
-        } else {
-          judge =  false
-        }
-      })
-      return judge
-    },
+    }
   },
   mounted() {
     this.getPosts()
