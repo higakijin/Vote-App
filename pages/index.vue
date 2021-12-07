@@ -18,8 +18,8 @@ export default {
     const post = await $axios.$get('/api/posts')
     return { post }
   },
-  mounted() {
-    console.log(`${this.$config.apiURL}/api/posts`)// ローカルでは3000になってます
-  },
+  // mounted() {
+  //   console.log(`${this.$config.apiURL}/api/posts`)// ローカルでは3000になってます
+  // },
 }
 </script>

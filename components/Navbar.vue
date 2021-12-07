@@ -3,7 +3,7 @@
     <nav class="flex items-center justify-between flex-wrap bg-green-500 p-4">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <nuxt-link to="/" class="flex">
-          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 50px; height: 40px;" xml:space="preserve">
+          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 50px; height: 30px;" xml:space="preserve">
             <style type="text/css">
               .st0{fill:#4B4B4B;}
             </style>
@@ -78,7 +78,53 @@ export default {
     return {
       name: '',
       isCurrentUser: false,
+      name: '',
+      error: null
     }
+  },
+  methods: {
+    async logout () {
+      this.error = null
+      try {
+        const res = await this.$axios.delete('/auth/sign_out', {
+          headers: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client')
+          }
+        })
+        if (!res) {
+          new Error('ログアウトできませんでした。')
+        }
+        if (!this.error) {
+          window.localStorage.removeItem('access-token')
+          window.localStorage.removeItem('client')
+          window.localStorage.removeItem('uid')
+          window.localStorage.removeItem('name')
+          this.$router.push('/users/auth')
+        }
+        this.error = null
+        return res
+      } catch (error)  {
+        this.error = 'ログアウトできませんでした。'
+        window.localStorage.removeItem('access-token')
+        window.localStorage.removeItem('client')
+        window.localStorage.removeItem('uid')
+        window.localStorage.removeItem('name')
+        this.$router.push('/users/auth')
+      }
+    }
+  },
+  mounted () {
+    this.name = window.localStorage.getItem('name')
+    const loginJudge = () => {
+      if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
+        this.isCurrentUser = true
+      } else {
+        this.isCurrentUser = false
+      }
+    }
+    loginJudge ()
   }
 }
 </script>
