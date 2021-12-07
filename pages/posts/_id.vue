@@ -31,7 +31,7 @@
             <p class="ml-1 my-auto">{{ votes_length }}</p>
           </div>
         </div>
-        <rateBar :agree_rate="agree_rate" :disagree_rate="disagree_rate"/>
+        <rateBar :agree_rate="$agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="$disagree_rate(post.agree_count, post.disagree_count)"/>
         <div class="flex items-center mt-2">
           <p class="font-semibold title-font text-gray-700mr-3">by {{ post.name }}</p>
           <p class="mt-1 text-gray-500 text-sm ml-auto">{{ post.created_at | moment }}</p>
@@ -58,8 +58,6 @@ export default {
   data() {
     return {
       post: '',
-      agree_rate: 50,
-      disagree_rate: 50,
       votes_length: 0
     }
   },
@@ -70,18 +68,7 @@ export default {
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }
-        let agree_rate = res.agree_count/(res.agree_count + res.disagree_count) * 100
-        if (agree_rate > 0 && agree_rate <= 1 ) {
-          agree_rate = 1
-        } else if (agree_rate < 100 && agree_rate >= 99) {
-          agree_rate = 99
-        } else {
-          agree_rate = Math.round(agree_rate)
-        }
-        let disagree_rate = 100 - agree_rate
         this.post = res
-        this.agree_rate = agree_rate
-        this.disagree_rate = disagree_rate
         this.votes_length = this.post.votes.length
       } catch (error) {
         console.log(error)

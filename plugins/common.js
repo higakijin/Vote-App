@@ -22,7 +22,25 @@ export default ({$axios}, inject) => {
       return judge
     }
   }
+  
+  function agree_rate (agree_count, disagree_count) {
+    let agree_rate = agree_count/(agree_count + disagree_count) * 100
+    if (agree_rate > 0 && agree_rate <= 1) {
+      agree_rate = 1
+    } else if (agree_rate < 100 && agree_rate >= 99) {
+      agree_rate = 99
+    } else {
+      agree_rate = Math.round(agree_rate)
+    }
+    return agree_rate
+  }
+
+  function disagree_rate (agree_count, disagree_count) {
+    return 100 - agree_rate(agree_count, disagree_count)
+  }
 
   inject('isLogin', isLogin)
   inject('already_posted', already_posted)
+  inject('agree_rate', agree_rate)
+  inject('disagree_rate', disagree_rate)
 }
