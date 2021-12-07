@@ -59,8 +59,8 @@ export default {
     return {
       post: '',
       agree_rate: 0,
-      disagree_rate: 0,
-      votes_length: 0
+      disagree_rate: 50,
+      votes_length: 50
     }
   },
   methods: {
