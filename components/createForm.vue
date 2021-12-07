@@ -7,7 +7,7 @@
     </div>
     <div>
       <div v-show='showCreateForm' @click.self='showCreateForm = !showCreateForm' class="fixed flex justify-center items-center bg-gray-500 bg-opacity-75 antialiasedv top-0 left-0 absolute w-full h-full min-h-screen">
-        <form @submit.prevent="createTopic" class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl fixed top-40">
+        <form @submit.prevent="createTopic" class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl fixed top-10 xl:top-40 lg:top-40">
           <div
             class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
           >
@@ -101,7 +101,10 @@ export default {
         }
         if (!this.error) {
           if (this.$route.path === "/") {
-            this.$router.go('/')  
+            this.showCreateForm = false
+            this.topic = ""
+            this.$emit('getPosts')
+            window.scrollTo(0, 0)
           } else {
             this.$router.push('/')
           }

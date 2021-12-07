@@ -56,11 +56,11 @@
         </div>
       </div>
     </nav>
-    <div class="mt-3 mr-10">
-      <div v-if="name" class="text-right">
+    <div class="w-full mt-3">
+      <div v-if="name" class="text-right mr-10">
         {{ name }} としてログイン中
       </div>
-      <div v-else class="text-right">
+      <div v-else class="text-right mr-10">
         ログインしていません
       </div>
     </div>
@@ -119,18 +119,18 @@ export default {
       } else {
         this.isEnable = true
       }
-    }
-  },
-  mounted () {
-    this.name = window.localStorage.getItem('name')
-    const loginJudge = () => {
+    },
+    loginJudge() {
       if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
         this.isCurrentUser = true
       } else {
         this.isCurrentUser = false
       }
     }
-    loginJudge ()
+  },
+  mounted () {
+    this.name = window.localStorage.getItem('name')
+    this.loginJudge ()
     this.calculateWindowWidth()
     window.addEventListener('resize', this.calculateWindowWidth)
   },
