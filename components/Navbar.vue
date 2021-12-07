@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fixed w-full">
     <nav class="flex items-center justify-between flex-wrap bg-green-500 p-4">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <nuxt-link to="/" class="flex">
@@ -22,11 +22,11 @@
         </nuxt-link>
       </div>
       <div class="block lg:hidden">
-        <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+        <button @click="isEnable = !isEnable" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
           <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
         </button>
       </div>
-      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div v-show="isEnable" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
           <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
             Docs
@@ -37,18 +37,13 @@
           <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
             Blog
           </a>
-          <!-- <router-link to="/posts/new"
-            class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            :class="this.$route.path==='/posts/new' ? 'text-white' : '' "
-          >
-            投稿する
-          </router-link>
-          <router-link to="/posts/unpublished"
+
+          <!-- <router-link to="/posts/unpublished"
             class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' "
           >
             下書き一覧
-          </router-link> -->
+          </router-link>  -->
         </div>
 
         <div v-if="isCurrentUser">
@@ -79,7 +74,10 @@ export default {
       name: '',
       isCurrentUser: false,
       name: '',
-      error: null
+      error: null,
+      isEnable: true,
+
+      windowWidth: 0
     }
   },
   methods: {
@@ -113,6 +111,14 @@ export default {
         window.localStorage.removeItem('name')
         this.$router.push('/users/auth')
       }
+    },
+    calculateWindowWidth() {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth <= 1024) {
+        this.isEnable = false
+      } else {
+        this.isEnable = true
+      }
     }
   },
   mounted () {
@@ -125,6 +131,11 @@ export default {
       }
     }
     loginJudge ()
+    this.calculateWindowWidth()
+    window.addEventListener('resize', this.calculateWindowWidth)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.calculateWindowWidth)
   }
 }
 </script>
