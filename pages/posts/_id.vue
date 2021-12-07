@@ -69,7 +69,7 @@ export default {
           new Error('メッセージを取得できませんでした。')
         }
         this.post = res
-        this.votes_length = this.post.votes.length
+        this.votes_length = this.post.agree_count + this.post.disagree_count
       } catch (error) {
         console.log(error)
       }
