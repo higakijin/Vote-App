@@ -119,7 +119,6 @@ export default {
         if (!res) {
           throw new Error('サインアップできませんでした。')
         }
-        console.log(res);
         if (!this.error) {
           window.localStorage.setItem('access-token', res.headers['access-token'])
           window.localStorage.setItem('client', res.headers.client)

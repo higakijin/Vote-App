@@ -36,7 +36,7 @@
                         <button class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full text-red-500 border border-red-500">Yes</button>
                       </div>
                       <nuxt-link :to='`/posts/${post.id}`'>
-                        <rateBar :agree_rate="agree_rate" :disagree_rate="disagree_rate"/>
+                        <rateBar :agree_rate="agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="disagree_rate(post.agree_count, post.disagree_count)"/>
 
                         <div class="flex items-center mt-2">
                           <p class="mt-1 text-gray-500 text-sm">{{ post.created_at | moment }}</p>
@@ -73,8 +73,6 @@ export default {
     return {
       showCreateForm: false,
       posts: [],
-      agree_rate: 42,
-      disagree_rate: 58,
       isLogin: false
     }
   },
@@ -89,7 +87,30 @@ export default {
       } catch(error) {
         console.log(error);
       }
-    }
+    },
+    loginJudge() {
+      if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
+        this.isLogin = true
+      } else {
+        this.isLogin = false
+      }
+    },
+    agree_rate(agree_count, disagree_count) {
+      let agree_rate = agree_count/(agree_count + disagree_count) * 100
+      if (agree_rate > 0 && agree_rate <= 1) {
+        agree_rate = 1
+      } else if (agree_rate < 100 && agree_rate >= 99) {
+        agree_rate = 99
+      } else {
+        agree_rate = Math.round(agree_rate)
+      }
+      return agree_rate
+    },
+    disagree_rate(agree_count, disagree_count) {
+      // let disagree_rate = disagree_count/(agree_count + disagree_count) * 100
+      // return Math.round(disagree_rate)
+      return 100 - this.agree_rate(agree_count, disagree_count)
+    },
   },
   mounted() {
     this.getPosts()
