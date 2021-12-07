@@ -58,9 +58,9 @@ export default {
   data() {
     return {
       post: '',
-      agree_rate: 0,
+      agree_rate: 50,
       disagree_rate: 50,
-      votes_length: 50
+      votes_length: 0
     }
   },
   methods: {
