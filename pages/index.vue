@@ -2,8 +2,7 @@
   <div class='relative'>
     <Navbar />
     <div class="grid grid-cols-7 gap-4">
-      <div class="col-span-7 xl:col-span-1 lg:col-span-1">
-      </div>
+      <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4">
         <section class="text-gray-600 body-font overflow-hidden">
           <div class="container px-5 pt-32 pb-12 mx-auto">
@@ -11,9 +10,8 @@
               <div v-for='post in posts' :key='post.id'>
                 <div class="py-8 flex flex-wrap md:flex-nowrap">
                   <div class='w-full'>
-                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                      <span class="font-semibold title-font text-gray-700">{{ post.name }}</span>
-                      <span class="mt-1 text-gray-500 text-sm">{{ post.created_at | moment }}に投稿</span>
+                    <div class="md:w-64 md:mb-0 flex flex-row">
+                      <p class="font-semibold title-font text-gray-700">{{ post.name }}</p>
                     </div>
                     <div class="md:flex-grow">
                       <nuxt-link :to='`/posts/${post.id}`' class='w-full'>
@@ -32,29 +30,22 @@
                           <p v-if="tag.name !== post.tags.slice(-1)[0].name" class="mr-2">,</p>
                         </div>
                       </div> -->
-                      <div class="w-full flex">
-                        <transition name="agree_bar">
-                          <div v-show="show" class="bg-blue-600 rounded-l-lg min-w-min" :style="{width: `${agree_rate}%`}">
-                            <p class="flex justify-center text-white">
-                              {{ agree_rate }}%
-                            </p>
-                          </div>
-                        </transition>
-                        <transition name="disagree_bar">
-                          <div v-show="show" class="bg-red-500 rounded-r-lg min-w-min" :style="{width: `${disagree_rate}%`}">
-                            <p class="flex justify-center text-white">
-                              {{ disagree_rate }}%
-                            </p>
-                          </div>
-                        </transition>
-                      </div>
 
-                      <nuxt-link :to='`/posts/${post.id}`' class="text-green-500 inline-flex items-center mt-4 w-full">
-                        Learn More
-                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M5 12h14"></path>
-                          <path d="M12 5l7 7-7 7"></path>
-                        </svg>
+                      <div v-if="isLogin" class="flex">
+                        <button class="hover:bg-blue-600 hover:text-white px-2 rounded-full text-blue-500 border border-blue-500">No</button>
+                        <button class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full text-red-500 border border-red-500">Yes</button>
+                      </div>
+                      <nuxt-link :to='`/posts/${post.id}`'>
+                        <rateBar :agree_rate="agree_rate" :disagree_rate="disagree_rate"/>
+
+                        <div class="flex items-center mt-2">
+                          <p class="mt-1 text-gray-500 text-sm">{{ post.created_at | moment }}</p>
+                          <p class="ml-auto text-green-500">Show More</p>
+                          <svg class="w-4 h-4 ml-2 text-green-500" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="M12 5l7 7-7 7"></path>
+                          </svg>
+                        </div>
                       </nuxt-link>
                     </div>
                   </div>
@@ -73,18 +64,18 @@
 
 <script>
 import Navbar from '../components/Navbar.vue'
+import rateBar from '../components/rateBar.vue'
 import createForm from '../components/createForm.vue'
 
 export default {
-  components: { Navbar, createForm },
+  components: { Navbar, createForm, rateBar },
   data() {
     return {
       showCreateForm: false,
       posts: [],
       agree_rate: 42,
       disagree_rate: 58,
-
-      show: false
+      isLogin: false
     }
   },
   methods: {
@@ -102,28 +93,7 @@ export default {
   },
   mounted() {
     this.getPosts()
-  },
-  updated() {
-    this.show = true
+    this.loginJudge()
   }
 }
 </script>
-
-<style scoped>
-.agree_bar-enter {
-  transform: translateX(-60%);
-}
-.agree_bar-enter-to {
-  transform: translateX(0);
-}
-.disagree_bar-enter {
-  transform: translateX(60%);
-}
-.disagree_bar-enter-to {
-  transform: translateX(0);
-}
-.agree_bar-enter-active, .disagree_bar-enter-active {
-  transition: all 1s ease;
-}
-
-</style>
