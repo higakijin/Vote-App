@@ -8,8 +8,6 @@ export default ({$axios}, inject) => {
       }
     }
   }
-  //テスト
-
   const already_posted = (votes, boolean) => {
     let judge = null
     if (votes) {
