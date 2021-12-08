@@ -40,34 +40,47 @@
           <button @click="vote(post, false)" class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
           <button @click="vote(post, true)" class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
         </div>
-        <div class="mt-5 flex justify-end">
-          <div class="flex justify-end">
-            <div class="balloon-right">
-              CSSだけで吹き出しをつくる
+        <div v-for="comment in post.comments" :key="comment.id">
+          <div v-if="comment.is_agree">
+            <div class="mt-5 flex justify-end">
+              <div class="flex justify-end">
+                <div class="balloon-right">
+                  {{ comment.body }}
+                </div>
+              </div>
+              <div class="flex">
+                <p class="my-auto pl-5 text-sm">{{ comment.name }}</p>
+              </div>
             </div>
           </div>
-          <div class="flex">
-            <p class="my-auto pl-5 text-sm">higakijin</p>
-          </div>
-        </div>
-        <div class="mt-5 flex">
-          <div class="flex">
-            <p class="my-auto pr-5 text-sm">aaaa</p>
-          </div>
-          <div class="flex">
-            <div class="balloon-left">
-              CSSだけで吹き出しをつくるよ。
+          <div v-else>
+            <div class="mt-5 flex">
+              <div class="flex">
+                <p class="my-auto pr-5 text-sm">{{ comment.name}}</p>
+              </div>
+              <div class="flex">
+                <div class="balloon-left">
+                  {{ comment.body}}
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
-        <form class="my-40 w-full">
-          <div class="flex items-center border-b border-green-500 p-2">
-            <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
-            <button class="ml-auto flex-shrink-0 text-green-500 hover:bg-green-500 hover:text-white text-sm border border-green-500 py-1 px-2 rounded" type="button">
-              投稿
-            </button>
-          </div>
-        </form>
+        <div v-if="$already_posted(post.votes, false) || $already_posted(post.votes, true)">
+          <form @submit.prevent="createComment(post)" class="mt-20 mb-40 w-full">
+            <div class="flex items-center border-b border-green-500 p-2">
+              <input v-model="comment" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
+              <button class="ml-auto flex-shrink-0 text-green-500 hover:bg-green-500 hover:text-white text-sm border border-green-500 py-1 px-2 rounded">
+                投稿
+              </button>
+            </div>
+          </form>
+        </div>
+        <div v-else>
+          <p class="pt-10 text-center">コメントをするにはまず投票をしましょう！</p>
+        </div>
+
       </div>
       
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
@@ -87,7 +100,8 @@ export default {
   data() {
     return {
       post: '',
-      votes_length: 0
+      votes_length: 0,
+      comment: ''
     }
   },
   methods: {
@@ -119,6 +133,25 @@ export default {
         console.log(error)
       }
     },
+    async createComment(post) {
+      const res = await this.$axios.$post(`/api/posts/${post.id}/comments`, {
+        uid: window.localStorage.getItem('uid'),
+        "access-token": window.localStorage.getItem('access-token'),
+        client: window.localStorage.getItem('client'),
+        post: {
+          id: post.id,
+        },
+        comment: {
+          body: this.comment,
+        }
+      })
+      this.getPost()
+      this.comment = ""
+      // ページ最下部へスクロール
+      const elm = document.documentElement
+      const bottom = elm.scrollHeight - elm.clientHeight
+      window.scroll(0, bottom)
+    }
   },
   created() {
     this.getPost()
@@ -128,6 +161,7 @@ export default {
 
 <style scoped>
 .balloon-right, .balloon-left{
+  z-index: -1;
   position: relative;
   padding: 20px;
   border-radius: 0.375rem;
