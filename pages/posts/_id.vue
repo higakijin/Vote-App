@@ -82,7 +82,7 @@
             </form>
           </div>
           <div v-else>
-            <p class="pt-10 text-center">コメントをするにはまず投票をしましょう！</p>
+            <p class="pt-10 text-center">投票・コメントをするにはまず投票をしましょう！</p>
           </div>
         </div>
 
