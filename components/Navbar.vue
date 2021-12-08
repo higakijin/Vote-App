@@ -46,10 +46,10 @@
           </router-link>  -->
         </div>
 
-        <div v-if="isCurrentUser">
+        <div v-show="$isLogin()">
           <button @click="logout" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-600 hover:bg-white mt-4 lg:mt-0 hover:cursor-pointer">ログアウト</button>
         </div>
-        <div v-else>
+        <div v-show="!$isLogin()">
           <nuxt-link to="/users/auth" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-600 hover:bg-white mt-4 lg:mt-0">
             ログイン
           </nuxt-link>
@@ -71,8 +71,6 @@
 export default {
   data() {
     return {
-      name: '',
-      isCurrentUser: false,
       name: '',
       error: null,
       isEnable: true,
@@ -120,17 +118,9 @@ export default {
         this.isEnable = true
       }
     },
-    loginJudge() {
-      if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
-        this.isCurrentUser = true
-      } else {
-        this.isCurrentUser = false
-      }
-    }
   },
   mounted () {
     this.name = window.localStorage.getItem('name')
-    this.loginJudge ()
     this.calculateWindowWidth()
     window.addEventListener('resize', this.calculateWindowWidth)
   },

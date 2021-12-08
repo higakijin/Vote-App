@@ -67,18 +67,23 @@
           </div>
 
         </div>
-        <div v-if="$already_posted(post.votes, false) || $already_posted(post.votes, true)">
-          <form @submit.prevent="createComment(post)" class="mt-20 mb-40 w-full">
-            <div class="flex items-center border-b border-green-500 p-2">
-              <input v-model="comment" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
-              <button class="ml-auto flex-shrink-0 text-green-500 hover:bg-green-500 hover:text-white text-sm border border-green-500 py-1 px-2 rounded">
-                投稿
-              </button>
-            </div>
-          </form>
+        <div v-show="!$isLogin()">
+          <p class="pt-10 text-center">コメントをするにはまず<nuxt-link to="/users/auth" class="underline text-blue-700">ログイン</nuxt-link>しましょう！</p>
         </div>
-        <div v-else>
-          <p class="pt-10 text-center">コメントをするにはまず投票をしましょう！</p>
+        <div v-show="$isLogin()">
+          <div v-if="$already_posted(post.votes, false) || $already_posted(post.votes, true)">
+            <form @submit.prevent="createComment(post)" class="mt-20 mb-40 w-full">
+              <div class="flex items-center border-b border-green-500 p-2">
+                <input v-model="comment" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
+                <button class="ml-auto flex-shrink-0 text-green-500 hover:bg-green-500 hover:text-white text-sm border border-green-500 py-1 px-2 rounded">
+                  投稿
+                </button>
+              </div>
+            </form>
+          </div>
+          <div v-else>
+            <p class="pt-10 text-center">コメントをするにはまず投票をしましょう！</p>
+          </div>
         </div>
 
       </div>
