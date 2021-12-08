@@ -60,7 +60,16 @@
             </div>
           </div>
         </div>
+        <form class="my-40 w-full">
+          <div class="flex items-center border-b border-green-500 p-2">
+            <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
+            <button class="ml-auto flex-shrink-0 text-green-500 hover:bg-green-500 hover:text-white text-sm border border-green-500 py-1 px-2 rounded" type="button">
+              投稿
+            </button>
+          </div>
+        </form>
       </div>
+      
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
         <createForm />
       </div>
