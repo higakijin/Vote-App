@@ -36,9 +36,29 @@
           <p class="font-semibold title-font text-gray-700mr-3">by {{ post.name }}</p>
           <p class="mt-1 text-gray-500 text-sm ml-auto">{{ post.created_at | moment }}</p>
         </div>
-        <div v-show="$isLogin()" class="mt-5 flex w-full gap-x-4">
+        <div v-show="$isLogin()" class="mt-5 flex w-full gap-x-4 mb-20">
           <button @click="vote(post, false)" class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
           <button @click="vote(post, true)" class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
+        </div>
+        <div class="mt-5 flex justify-end">
+          <div class="flex justify-end">
+            <div class="balloon-right">
+              CSSだけで吹き出しをつくる
+            </div>
+          </div>
+          <div class="flex">
+            <p class="my-auto pl-5 text-sm">higakijin</p>
+          </div>
+        </div>
+        <div class="mt-5 flex">
+          <div class="flex">
+            <p class="my-auto pr-5 text-sm">aaaa</p>
+          </div>
+          <div class="flex">
+            <div class="balloon-left">
+              CSSだけで吹き出しをつくるよ。
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
@@ -96,3 +116,40 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.balloon-right, .balloon-left{
+  position: relative;
+  padding: 20px;
+  border-radius: 0.375rem;
+}
+.balloon-right {
+  --tw-bg-opacity: 1;
+  background-color: rgba(252, 165, 165, var(--tw-bg-opacity));
+}
+.balloon-left {
+  --tw-bg-opacity: 1;
+  background-color: rgba(191, 219, 254, var(--tw-bg-opacity));
+}
+.balloon-right::before, .balloon-left::before{
+  content: '';
+  position: absolute;
+  display: block;
+  height: 0;
+  
+  top: 30%;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+.balloon-right::before{
+  right: -15px;
+  --tw-bg-opacity: 1;
+  border-left: 15px solid rgba(252, 165, 165, var(--tw-bg-opacity));
+}
+.balloon-left::before{
+  left: -15px;
+  --tw-bg-opacity: 1;
+  border-right: 15px solid rgba(191, 219, 254, var(--tw-bg-opacity));
+}
+
+</style>
