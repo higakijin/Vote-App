@@ -28,7 +28,7 @@
                   v-15.398c0-14.524-9.986-26.66-23.466-30.034v-4.428h180.272V485.443z" style="fill: rgba(0, 0, 0, 0.73);"></path>
               </g>
             </svg>
-            <p class="ml-1 my-auto">{{ votes_length }}</p>
+            <p class="ml-1 my-auto">{{ total_votes }}</p>
           </div>
         </div>
         <rateBar :agree_rate="$agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="$disagree_rate(post.agree_count, post.disagree_count)"/>
@@ -107,13 +107,25 @@ import confirmModal from '../../components/confirmModal.vue'
 
 export default {
   components: { Navbar, createForm, rateBar, confirmModal },
+
+  async asyncData(context) {
+    try {
+      const res = await context.$axios.$get(`/api/posts/${context.params.id}`)
+      return {
+        post: res,
+        total_votes: res.agree_count + res.disagree_count
+      }
+    } catch {
+      console.log(error)
+    }
+  },
+
   data() {
     return {
-      post: '',
-      votes_length: 0,
       comment: '',
     }
   },
+
   methods: {
     async getPost() {
       try {
@@ -122,7 +134,7 @@ export default {
           new Error('メッセージを取得できませんでした。')
         }
         this.post = res
-        this.votes_length = this.post.agree_count + this.post.disagree_count
+        this.total_votes = this.post.agree_count + this.post.disagree_count
       } catch (error) {
         console.log(error)
       }
