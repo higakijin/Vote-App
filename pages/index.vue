@@ -48,8 +48,8 @@
                     </div>
                     <div class="md:flex-grow">
                       <div v-show="$isLogin()" class="flex">
-                        <button @click="vote(post, false)" class="hover:bg-blue-600 hover:text-white px-2 rounded-full border border-blue-500" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
-                        <button @click="vote(post, true)" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
+                        <button @click="$refs.child.showModal(post, false); confirm_post=post" class="hover:bg-blue-600 hover:text-white px-2 rounded-full border border-blue-500" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
+                        <button @click="$refs.child.showModal(post, true); confirm_post=post" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
                       </div>
                       <nuxt-link :to='`/posts/${post.id}`'>
                         <rateBar :agree_rate="$agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="$disagree_rate(post.agree_count, post.disagree_count)"/>
@@ -73,6 +73,7 @@
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
         <createForm @getPosts="getPosts"/>
       </div>
+      <confirmModal ref="child" :post="confirm_post" @vote="vote" />
     </div>
   </div>
 </template>
@@ -81,13 +82,15 @@
 import Navbar from '../components/Navbar.vue'
 import rateBar from '../components/rateBar.vue'
 import createForm from '../components/createForm.vue'
+import confirmModal from '../components/confirmModal.vue'
 
 export default {
-  components: { Navbar, createForm, rateBar },
+  components: { Navbar, createForm, rateBar, confirmModal },
   data() {
     return {
       showCreateForm: false,
       posts: [],
+      confirm_post: null
     }
   },
   methods: {
@@ -104,6 +107,7 @@ export default {
         console.log(error);
       }
     },
+
     async vote(post, judge) {
       try {
         const res = await this.$axios.$post(`/api/posts/${post.id}/votes`, {
@@ -120,6 +124,7 @@ export default {
         console.log(error)
       }
     }
+
   },
   mounted() {
     this.getPosts()

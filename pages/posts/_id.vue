@@ -37,8 +37,9 @@
           <p class="mt-1 text-gray-500 text-sm ml-auto">{{ post.created_at | moment }}</p>
         </div>
         <div v-show="$isLogin()" class="mt-5 flex w-full gap-x-4 mb-20">
-          <button @click='showModal(false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
-          <button @click='showModal(true)' class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
+          <!-- <button @click='showModal(false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button> -->
+          <button @click='$refs.child.showModal(post, false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
+          <button @click='$refs.child.showModal(post, true)' class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
         </div>
         <div v-for="comment in post.comments" :key="comment.id">
           <div v-if="comment.is_agree">
@@ -92,43 +93,7 @@
         <createForm />
       </div>
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
-        <div v-show="confirmModal" @click.self='confirmModal = !confirmModal' class="fixed flex justify-center items-center bg-gray-500 bg-opacity-75 antialiasedv top-0 left-0 absolute w-full h-full min-h-screen">
-          <div class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl fixed top-40">
-            <div
-              class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
-            >
-              <p class="font-semibold text-red-500">Warning!</p>
-              <div @click='confirmModal = !confirmModal' class="cursor-pointer">
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-            <div class="flex flex-col px-6 py-5 bg-gray-50 text-red-500">
-              <p>このまま実行すると<i class="font-bold">今までのコメントが消えます</i>。</p>
-              <p>実行しますか？</p>
-            </div>
-            <div
-              class="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
-            >
-              <p class="font-semibold text-gray-600 cursor-pointer text-red-500" @click='confirmModal = !confirmModal'>Cancel</p>
-              <button @click="vote(post, opinion)" class="px-4 py-2 border border-gray-200 rounded">
-                Done!
-              </button>
-            </div>
-          </div>
-        </div>
+        <confirmModal :post="post" ref="child" @vote="vote" />
       </div>
     </div>
   </div>
@@ -138,16 +103,15 @@
 import Navbar from '../../components/Navbar.vue'
 import rateBar from '../../components/rateBar.vue'
 import createForm from '../../components/createForm.vue'
+import confirmModal from '../../components/confirmModal.vue'
 
 export default {
-  components: { Navbar, createForm, rateBar },
+  components: { Navbar, createForm, rateBar, confirmModal },
   data() {
     return {
       post: '',
       votes_length: 0,
       comment: '',
-      opinion: null,
-      confirmModal: false,
     }
   },
   methods: {
@@ -163,14 +127,7 @@ export default {
         console.log(error)
       }
     },
-    showModal(opinion) {
-      if (this.$already_posted(this.post.votes, false) || this.$already_posted(this.post.votes, true)) {
-        this.confirmModal = true
-      } else {
-        this.vote(this.post, opinion)
-      }
-      this.opinion = opinion
-    },
+
     async vote(post, judge) {
       try {
         const res = await this.$axios.$post(`/api/posts/${post.id}/votes`, {
@@ -183,11 +140,11 @@ export default {
           }
         })
         this.getPost()
-        this.confirmModal = false
       } catch(error) {
         console.log(error)
       }
     },
+    
     async createComment(post) {
       const res = await this.$axios.$post(`/api/posts/${post.id}/comments`, {
         uid: window.localStorage.getItem('uid'),
