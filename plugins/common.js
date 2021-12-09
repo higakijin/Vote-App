@@ -9,17 +9,19 @@ export default ({$axios}, inject) => {
     }
   }
   const already_posted = (votes, boolean) => {
-    let judge = null
-    if (votes) {
-      votes.some((e)=> {
-        if (e.is_agree === boolean && e.uid === window.localStorage.getItem('uid')) {
-          judge = true
-          return true // ここでtrueを返すことでsome内の処理を終了させる
-        } else {
-          judge =  false
-        }
-      })
-      return judge
+    if (process.browser) {
+      let judge = null
+      if (votes) {
+        votes.some((e)=> {
+          if (e.is_agree === boolean && e.uid === window.localStorage.getItem('uid')) {
+            judge = true
+            return true // ここでtrueを返すことでsome内の処理を終了させる
+          } else {
+            judge =  false
+          }
+        })
+        return judge
+      }
     }
   }
   
