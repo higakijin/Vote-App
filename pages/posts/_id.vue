@@ -75,7 +75,7 @@
           <div v-if="$already_posted(post.votes, false) || $already_posted(post.votes, true)">
             <form @submit.prevent="createComment(post)" class="mt-20 mb-40 w-full">
               <div class="flex items-center border-b border-green-500 p-2">
-                <input v-model="comment" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
+                <input required v-model="comment" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
                 <button class="ml-auto flex-shrink-0 text-green-500 hover:bg-green-500 hover:text-white text-sm border border-green-500 py-1 px-2 rounded">
                   投稿
                 </button>
