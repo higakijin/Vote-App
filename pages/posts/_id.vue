@@ -68,7 +68,7 @@
 
         </div>
         <div v-show="!$isLogin()">
-          <p class="pt-10 text-center">コメントをするにはまず<nuxt-link to="/users/auth" class="underline text-blue-700">ログイン</nuxt-link>しましょう！</p>
+          <p class="pt-10 text-center">投票・コメントをするにはまず<nuxt-link to="/users/auth" class="underline text-blue-700">ログイン</nuxt-link>しましょう！</p>
         </div>
         <div v-show="$isLogin()">
           <div v-if="$already_posted(post.votes, false) || $already_posted(post.votes, true)">
@@ -82,7 +82,7 @@
             </form>
           </div>
           <div v-else>
-            <p class="pt-10 text-center">投票・コメントをするにはまず投票をしましょう！</p>
+            <p class="pt-10 text-center">コメントをするにはまず投票をしましょう！</p>
           </div>
         </div>
 
