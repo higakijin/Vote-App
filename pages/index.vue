@@ -86,10 +86,22 @@ import confirmModal from '../components/confirmModal.vue'
 
 export default {
   components: { Navbar, createForm, rateBar, confirmModal },
+  
+  async asyncData(context) {
+    try {
+      const res = await context.$axios.$get('/api/posts')
+      return { 
+        posts: res
+              .filter((v) => v.is_published)
+              .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) }) 
+      }
+    } catch {
+      console.log(error)
+    }
+  },
   data() {
     return {
       showCreateForm: false,
-      posts: [],
       confirm_post: null
     }
   },
@@ -126,8 +138,5 @@ export default {
     }
 
   },
-  mounted() {
-    this.getPosts()
-  }
 }
 </script>

@@ -103,6 +103,7 @@ export default {
           if (this.$route.path === "/") {
             this.showCreateForm = false
             this.topic = ""
+            this.isForPublic = false
             this.$emit('getPosts')
             window.scrollTo(0, 0)
           } else {
