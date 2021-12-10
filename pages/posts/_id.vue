@@ -41,27 +41,27 @@
           <button @click='$refs.child.showModal(post, false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
           <button @click='$refs.child.showModal(post, true)' class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
         </div>
-        <div v-for="comment in post.comments" :key="comment.id">
-          <div v-if="comment.is_agree">
+        <div v-for="created_comment in post.comments" :key="created_comment.id">
+          <div v-if="created_comment.is_agree">
             <div class="mt-5 flex justify-end">
               <div class="flex justify-end">
                 <div class="balloon-right">
-                  {{ comment.body }}
+                  {{ created_comment.body }}
                 </div>
               </div>
               <div class="flex">
-                <p class="my-auto pl-5 text-sm">{{ comment.name }}</p>
+                <p class="my-auto pl-5 text-sm">{{ created_comment.name }}</p>
               </div>
             </div>
           </div>
           <div v-else>
             <div class="mt-5 flex">
               <div class="flex">
-                <p class="my-auto pr-5 text-sm">{{ comment.name }}</p>
+                <p class="my-auto pr-5 text-sm">{{ created_comment.name }}</p>
               </div>
               <div class="flex">
                 <div class="balloon-left">
-                  {{ comment.body }}
+                  {{ created_comment.body }}
                 </div>
               </div>
             </div>
