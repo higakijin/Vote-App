@@ -72,7 +72,7 @@
           <p class="pt-10 text-center">投票・コメントをするにはまず<nuxt-link to="/users/auth" class="underline text-blue-700">ログイン</nuxt-link>しましょう！</p>
         </div>
         <div v-show="$isLogin()">
-          <div v-if="$already_posted(post.votes, false) || $already_posted(post.votes, true)">
+          <div v-show="$already_posted(post.votes, false) || $already_posted(post.votes, true)">
             <form @submit.prevent="createComment(post)" class="mt-20 mb-40 w-full">
               <div class="flex items-center border-b border-green-500 p-2">
                 <input required v-model="comment" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="コメントを入力" aria-label="Full name">
@@ -82,7 +82,7 @@
               </div>
             </form>
           </div>
-          <div v-else>
+          <div v-show="!$already_posted(post.votes, false) && !$already_posted(post.votes, true)">
             <p class="pt-10 text-center">コメントをするにはまず投票をしましょう！</p>
           </div>
         </div>
@@ -111,6 +111,7 @@ export default {
   async asyncData(context) {
     try {
       const res = await context.$axios.$get(`/api/posts/${context.params.id}`)
+        // console.log("asyncData；　"+res)
       return {
         post: res,
         total_votes: res.agree_count + res.disagree_count
@@ -135,6 +136,7 @@ export default {
         }
         this.post = res
         this.total_votes = this.post.agree_count + this.post.disagree_count
+        // console.log("getPost(): " + res)
       } catch (error) {
         console.log(error)
       }
