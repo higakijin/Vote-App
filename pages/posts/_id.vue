@@ -111,7 +111,6 @@ export default {
   async asyncData(context) {
     try {
       const res = await context.$axios.$get(`/api/posts/${context.params.id}`)
-        // console.log("asyncData；　"+res)
       return {
         post: res,
         total_votes: res.agree_count + res.disagree_count
@@ -136,7 +135,6 @@ export default {
         }
         this.post = res
         this.total_votes = this.post.agree_count + this.post.disagree_count
-        // console.log("getPost(): " + res)
       } catch (error) {
         console.log(error)
       }
