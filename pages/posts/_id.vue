@@ -215,7 +215,9 @@ export default {
   },
 
   created() {
-    this.getPost()
+    if (!this.post.is_published) {
+      this.$router.push('/')
+    } 
   },
 
   mounted() {
