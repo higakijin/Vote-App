@@ -99,7 +99,17 @@ export default {
           new Error('投稿できませんでした')
         }
         if (!this.error) {
-          if (this.$route.path === "/") {
+          if (!this.isForPublic){
+            if (this.$route.path === '/posts/unpublished') {
+              this.showCreateForm = false
+              this.topic = ""
+              this.isForPublic = false
+              this.$emit('getPosts')
+              window.scrollTo(0, 0)
+            } else {
+              this.$router.push('/posts/unpublished')
+            }
+          } else if (this.$route.path === "/") {
             this.showCreateForm = false
             this.topic = ""
             this.isForPublic = false
