@@ -37,7 +37,7 @@
           <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
             Blog
           </a>
-          <nuxt-link to="/posts/unpublished" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' ">
+          <nuxt-link v-show="$isLogin()" to="/posts/unpublished" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' ">
             下書き
           </nuxt-link>
 
