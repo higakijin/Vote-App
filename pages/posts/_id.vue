@@ -37,7 +37,6 @@
           <p class="mt-1 text-gray-500 text-sm ml-auto">{{ post.created_at | moment }}</p>
         </div>
         <div v-show="$isLogin()" class="mt-5 flex w-full gap-x-4 mb-20">
-          <!-- <button @click='showModal(false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button> -->
           <button @click='$refs.child.showModal(post, false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
           <button @click='$refs.child.showModal(post, true)' class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
         </div>
