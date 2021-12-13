@@ -36,7 +36,7 @@
                             </g>
                           </svg>
                         </div>
-                        <p class="ml-1">{{ post.votes.length }}</p>
+                        <p class="ml-1">{{ post.agree_count + post.disagree_count }}</p>
                       </div>
                     </div>
                     <div class="md:flex-grow">
@@ -93,7 +93,7 @@ export default {
       return { 
         posts: res
               .filter((v) => v.is_published)
-              .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) }) 
+              .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
       }
     } catch {
       console.log(error)
