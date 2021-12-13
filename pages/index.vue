@@ -12,8 +12,8 @@
                   <div class='w-full'>
                     <div class="md:mb-0 flex flex-row">
                       <p class="font-semibold title-font text-gray-700">{{ post.name }}</p>
-                      <div class="ml-auto flex">
-                        <div class="w-5 h-5 my-auto">
+                      <div class="ml-auto flex gap-x-4">
+                        <div class="w-8 h-8 my-auto flex">
                           <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="opacity: 1;" xml:space="preserve">
                             <style type="text/css">
                               .st0{fill:#4B4B4B;}
@@ -35,8 +35,36 @@
                                 v-15.398c0-14.524-9.986-26.66-23.466-30.034v-4.428h180.272V485.443z" style="fill: rgba(0, 0, 0, 0.73);"></path>
                             </g>
                           </svg>
+                          <p class="ml-1 my-auto">{{ post.agree_count + post.disagree_count }}</p>
                         </div>
-                        <p class="ml-1">{{ post.agree_count + post.disagree_count }}</p>
+
+                        <div v-show="!already_liked(post.likes)" @click="like(post)" class="w-8 h-8 my-auto flex cursor-pointer">
+                          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                            <style type="text/css">
+                              .st0{fill:#4B4B4B;}
+                            </style>
+                            <g>
+                              <path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
+                                c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
+                                l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z" style="fill: rgb(75, 75, 75);"></path>
+                            </g>
+                          </svg>
+                          <p class="ml-1 my-auto">{{ post.likes_count }}</p>
+                        </div>
+                        <div v-show="already_liked(post.likes)" @click="unlike(post)" class="w-8 h-8 my-auto flex cursor-pointer">
+                          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                            <style type="text/css">
+                              .st0{fill:#4B4B4B;}
+                            </style>
+                            <g>
+                              <path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
+                                c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
+                                l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z" style="fill: rgb(223, 86, 86);"></path>
+                            </g>
+                          </svg>
+                          <p class="ml-1 my-auto text-red-500">{{ post.likes_count }}</p>
+                        </div>
+
                       </div>
                     </div>
                     <div class="md:flex-grow">
@@ -134,6 +162,59 @@ export default {
         this.getPosts()
       } catch(error) {
         console.log(error)
+      }
+    },
+
+    async like(post) {
+      try {
+        if (!this.$isLogin()) {
+          this.$router.push('/users/auth') 
+        } else {
+          const res = await this.$axios.$post(`/api/posts/${post.id}/post_likes`, {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client'),
+            post: {
+              id: post.id
+            }
+          })
+          this.getPosts()
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async unlike(post) {
+      try {
+        const res = await this.$axios.$delete(`/api/posts/${post.id}/post_likes`, {
+          data: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client'),
+            post: {
+              id: post.id
+            }
+          }
+        })
+        this.getPosts()
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    already_liked(likes) {
+      if (process.browser && likes) {
+        let judge = null
+        likes.some((e) => {
+          if (e.uid === window.localStorage.getItem('uid')) {
+            judge = true
+            return true // someの処理を終わらせる
+          } else {
+            judge = false
+          }
+        })
+        return judge
       }
     }
 

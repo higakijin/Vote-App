@@ -2,35 +2,50 @@
   <div class='relative'>
     <Navbar />
     <div class="grid grid-cols-7 gap-4">
-      <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
-      <div class="col-span-7 xl:col-span-4 lg:col-span-4 pt-36 mx-5 pb-12">
-        <div class="flex">
-          <svg class="w-10 h-10 my-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
-            <style type="text/css">
-              .st0{fill:#4B4B4B;}
-            </style>
-            <g>
-              <polygon class="st0" points="179.754,130.165 163.414,154.427 348.602,154.427 332.246,130.165 297.75,130.165 297.75,0 214.25,0 
-                214.25,130.165 	" style="fill: rgba(0, 0, 0, 0.73);"></polygon>
-              <path class="st0" d="M467.42,179.39l-78.738-98.631c-2.518-3.152-6.337-5.001-10.362-5.001h-66.663v26.557h60.274l62.072,77.769
-                H77.997l62.089-77.769h60.257V75.758h-66.646c-4.042,0-7.861,1.85-10.379,5.001L44.58,179.39c-1.884,2.356-2.912,5.267-2.912,8.273
-                v311.062c0,3.494,1.422,6.911,3.905,9.395c2.467,2.466,5.875,3.88,9.386,3.88h402.098c3.494,0,6.92-1.414,9.37-3.88
-                c2.484-2.484,3.905-5.901,3.905-9.395V187.663C470.332,184.657,469.304,181.746,467.42,179.39z M256.008,226.21
-                c4.145,0,7.502-3.375,7.502-7.519v-5.481c1.986,0.908,3.802,2.124,5.326,3.657c3.306,3.297,5.327,7.81,5.327,12.846v15.33h-36.329
-                v-15.33c0-5.036,2.021-9.548,5.328-12.846c1.524-1.533,3.339-2.749,5.326-3.657v5.481
-                C248.489,222.835,251.846,226.21,256.008,226.21z M263.939,308.082h-7.023h-1.85h-7.005l2.209-19.971
-                c-4.128-2.107-6.988-6.346-6.988-11.305c0-7.005,5.704-12.709,12.726-12.709c7.005,0,12.709,5.704,12.709,12.709
-                c0,4.959-2.86,9.198-6.988,11.305L263.939,308.082z M443.783,485.443H68.234V195.251h180.256v4.428
-                c-13.48,3.374-23.466,15.51-23.466,30.034v15.398c-8.581,0.36-15.449,7.382-15.449,16.057v56.078
-                c0,8.898,7.211,16.126,16.118,16.126h60.616c8.906,0,16.118-7.228,16.118-16.126v-56.078c0-8.675-6.868-15.698-15.449-16.057
-                v-15.398c0-14.524-9.986-26.66-23.466-30.034v-4.428h180.272V485.443z" style="fill: rgba(0, 0, 0, 0.73);"></path>
-            </g>
-          </svg>
-          <p class="my-auto mr-4">{{ total_votes }}</p>
-          <h1 class="text-2xl font-medium font-medium mb-3 w-10/12 break-words">{{ post.topic }}</h1>
-          <div class="w-1/12 my-auto">
-            <div v-show="isMyPost" class="cursor-pointer" @click="deletePost(post)">
-              <svg class="w-7 h-7" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+      <div class="col-span-7 xl:col-span-1 lg:col-span-1">
+        <svg class="w-10 h-10" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+          <style type="text/css">
+            .st0{fill:#4B4B4B;}
+          </style>
+          <g>
+            <path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
+              c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
+              l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z" style="fill: rgb(75, 75, 75);"></path>
+          </g>
+        </svg>
+      </div>
+      <div class="col-span-7 xl:col-span-5 lg:col-span-5 xl:pt-36 lg:pt-36 pt-24 mx-5 pb-12">
+        <div class="grid grid-cols-7">
+          <div class="col-span-1 flex justify-center">
+            <svg class="w-10 h-10 my-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+              <style type="text/css">
+                .st0{fill:#4B4B4B;}
+              </style>
+              <g>
+                <polygon class="st0" points="179.754,130.165 163.414,154.427 348.602,154.427 332.246,130.165 297.75,130.165 297.75,0 214.25,0 
+                  214.25,130.165 	" style="fill: rgba(0, 0, 0, 0.73);"></polygon>
+                <path class="st0" d="M467.42,179.39l-78.738-98.631c-2.518-3.152-6.337-5.001-10.362-5.001h-66.663v26.557h60.274l62.072,77.769
+                  H77.997l62.089-77.769h60.257V75.758h-66.646c-4.042,0-7.861,1.85-10.379,5.001L44.58,179.39c-1.884,2.356-2.912,5.267-2.912,8.273
+                  v311.062c0,3.494,1.422,6.911,3.905,9.395c2.467,2.466,5.875,3.88,9.386,3.88h402.098c3.494,0,6.92-1.414,9.37-3.88
+                  c2.484-2.484,3.905-5.901,3.905-9.395V187.663C470.332,184.657,469.304,181.746,467.42,179.39z M256.008,226.21
+                  c4.145,0,7.502-3.375,7.502-7.519v-5.481c1.986,0.908,3.802,2.124,5.326,3.657c3.306,3.297,5.327,7.81,5.327,12.846v15.33h-36.329
+                  v-15.33c0-5.036,2.021-9.548,5.328-12.846c1.524-1.533,3.339-2.749,5.326-3.657v5.481
+                  C248.489,222.835,251.846,226.21,256.008,226.21z M263.939,308.082h-7.023h-1.85h-7.005l2.209-19.971
+                  c-4.128-2.107-6.988-6.346-6.988-11.305c0-7.005,5.704-12.709,12.726-12.709c7.005,0,12.709,5.704,12.709,12.709
+                  c0,4.959-2.86,9.198-6.988,11.305L263.939,308.082z M443.783,485.443H68.234V195.251h180.256v4.428
+                  c-13.48,3.374-23.466,15.51-23.466,30.034v15.398c-8.581,0.36-15.449,7.382-15.449,16.057v56.078
+                  c0,8.898,7.211,16.126,16.118,16.126h60.616c8.906,0,16.118-7.228,16.118-16.126v-56.078c0-8.675-6.868-15.698-15.449-16.057
+                  v-15.398c0-14.524-9.986-26.66-23.466-30.034v-4.428h180.272V485.443z" style="fill: rgba(0, 0, 0, 0.73);"></path>
+              </g>
+            </svg>
+            <p class="my-auto">{{ total_votes }}</p>
+          </div>
+          <div class="col-span-6 lg:col-span-5 xl:col-span-5">
+            <h1 class="text-2xl font-medium font-medium mb-3 break-words px-3">{{ post.topic }}</h1>
+          </div>
+          <div class="col-span-7 lg:col-span-1 xl:col-span-1 my-auto flex justify-end gap-x-5">
+            <div v-show="isMyPost" class="inline-block cursor-pointer" @click="deletePost(post)">
+              <svg class="w-7 h-7 ml-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
                 <style type="text/css">
                   .st0{fill:#4B4B4B;}
                 </style>
@@ -48,6 +63,32 @@
                     c-8.403,0.51-15.624-5.886-16.134-14.288l-14.509-239.493C139.026,203.339,145.43,196.118,153.833,195.608z" style="fill: rgb(223, 86, 86);"></path>
                 </g>
               </svg>
+            </div>
+            <div v-show="already_liked(post.likes)" @click="unlike(post)" class="inline-blok flex cursor-pointer">
+              <svg class="h-7 w-7" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                <style type="text/css">
+                  .st0{fill:#4B4B4B;}
+                </style>
+                <g>
+                  <path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
+                    c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
+                    l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z" style="fill: rgb(223, 86, 86);"></path>
+                </g>
+              </svg>
+              <p class="ml-1 my-auto text-red-500">{{ post.likes_count }}</p>
+            </div>
+            <div v-show="!already_liked(post.likes)"  @click="like(post)" class="inline-block flex cursor-pointer">
+              <svg class="h-7 w-7" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                <style type="text/css">
+                  .st0{fill:#4B4B4B;}
+                </style>
+                <g>
+                  <path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
+                    c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
+                    l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z" style="fill: rgb(75, 75, 75);"></path>
+                </g>
+              </svg>
+              <p class="ml-1 my-auto">{{ post.likes_count }}</p>
             </div>
           </div>
         </div>
@@ -108,7 +149,7 @@
 
       </div>
       
-      <div class="col-span-7 xl:col-span-2 lg:col-span-2">
+      <div class="col-span-7 xl:col-span-1 lg:col-span-1">
         <createForm />
       </div>
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
@@ -211,7 +252,60 @@ export default {
         console.log(error)
       }
       this.$router.push('/')
-    }
+    },
+
+    already_liked(likes) {
+      if (process.browser && likes) {
+        let judge = null
+        likes.some((e) => {
+          if (e.uid === window.localStorage.getItem('uid')) {
+            judge = true
+            return true // someの処理を終わらせる
+          } else {
+            judge = false
+          }
+        })
+        return judge
+      }
+    },
+
+    async like(post) {
+      try {
+        if (!this.$isLogin()) {
+          this.$router.push('/users/auth')
+        } else {
+          const res = await this.$axios.$post(`/api/posts/${post.id}/post_likes`, {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client'),
+            post: {
+              id: post.id
+            }
+          })
+          this.getPost()
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async unlike(post) {
+      try {
+        const res = await this.$axios.$delete(`/api/posts/${post.id}/post_likes`, {
+          data: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client'),
+            post: {
+              id: post.id
+            }
+          }
+        })
+        this.getPost()
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 
   created() {
