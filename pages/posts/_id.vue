@@ -14,9 +14,9 @@
           </g>
         </svg>
       </div>
-      <div class="col-span-7 xl:col-span-5 lg:col-span-5 xl:pt-36 lg:pt-36 pt-24 mx-5 pb-12">
+      <div class="col-span-7 xl:col-span-4 lg:col-span-4 xl:pt-36 lg:pt-36 pt-24 mx-5 pb-12">
         <div class="grid grid-cols-7">
-          <div class="col-span-1 flex justify-center">
+          <div class="col-span-7 xl:col-span-6 lg:col-span-6 flex">
             <svg class="w-10 h-10 my-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
               <style type="text/css">
                 .st0{fill:#4B4B4B;}
@@ -39,9 +39,9 @@
               </g>
             </svg>
             <p class="my-auto">{{ total_votes }}</p>
-          </div>
-          <div class="col-span-6 lg:col-span-5 xl:col-span-5">
-            <h1 class="text-2xl font-medium font-medium mb-3 break-words px-3">{{ post.topic }}</h1>
+          <!-- </div>
+          <div class="col-span-6 lg:col-span-5 xl:col-span-5"> -->
+            <h1 class="text-2xl font-medium font-medium mb-3 break-words pl-3">{{ post.topic }}</h1>
           </div>
           <div class="col-span-7 lg:col-span-1 xl:col-span-1 my-auto flex justify-end gap-x-5">
             <div v-show="isMyPost" class="inline-block cursor-pointer" @click="deletePost(post)">
@@ -149,7 +149,7 @@
 
       </div>
       
-      <div class="col-span-7 xl:col-span-1 lg:col-span-1">
+      <div class="col-span-7 xl:col-span-2 lg:col-span-2">
         <createForm />
       </div>
       <div class="col-span-7 xl:col-span-2 lg:col-span-2">
