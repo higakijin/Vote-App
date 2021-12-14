@@ -22,8 +22,9 @@
                       </h2>
                       <div class="flex items-center mt-2">
                         <p class="mt-1 text-gray-500 text-sm">{{ post.created_at | moment }}</p>
-                        <div class="ml-auto text-green-500 flex border border-green-500 py-1 px-3 hover:bg-green-500 hover:text-white rounded cursor-pointer">
-                          <p @click="updateToPublic(post)">公開する</p>
+                        <div class="ml-auto flex gap-4">
+                          <p @click="deletePost(post)" class="text-red-500 border border-red-500 py-1 px-3 hover:text-white hover:bg-red-500 rounded cursor-pointer">削除</p>
+                          <p @click="updateToPublic(post)" class="text-green-500 border border-green-500 py-1 px-3 hover:text-white hover:bg-green-500 rounded cursor-pointer">公開する</p>
                         </div>
                       </div>
                     </div>
@@ -104,11 +105,26 @@ export default {
             id: post.id
           },
         }) 
-        console.log(res)
         this.getPosts()
       } catch (error) {
         console.log(error)
       }
+    },
+
+    async deletePost(post) {
+      try {
+        const res = await this.$axios.$delete(`/api/posts/${post.id}`, {
+          data: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client'),
+            post: {id: post.id},
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+      this.getPosts()
     }
   },
 }

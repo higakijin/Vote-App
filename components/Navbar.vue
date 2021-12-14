@@ -28,7 +28,7 @@
       </div>
       <div v-show="isEnable" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-          <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+          <!-- <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
             Docs
           </a>
           <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
@@ -36,7 +36,7 @@
           </a>
           <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
             Blog
-          </a>
+          </a> -->
           <nuxt-link v-show="$isLogin()" to="/posts/unpublished" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' ">
             下書き
           </nuxt-link>
