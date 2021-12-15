@@ -11,7 +11,7 @@
                 <div class="py-8 flex flex-wrap md:flex-nowrap">
                   <div class='w-full'>
                     <div class="md:mb-0 flex flex-row">
-                      <p class="font-semibold title-font text-gray-700">{{ post.name }}</p>
+                      <p class="font-semibold title-font text-gray-700"><nuxt-link :to='`/users/${post.user_id}`'>{{ post.name }}</nuxt-link></p>
                       <div class="ml-auto flex gap-x-4">
                         <div class="w-8 h-8 my-auto flex">
                           <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="opacity: 1;" xml:space="preserve">
@@ -76,8 +76,8 @@
                     </div>
                     <div class="md:flex-grow">
                       <div v-show="$isLogin()" class="flex">
-                        <button @click="$refs.child.showModal(post, false); confirm_post=post" class="hover:bg-blue-600 hover:text-white px-2 rounded-full border border-blue-500" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
-                        <button @click="$refs.child.showModal(post, true); confirm_post=post" class="hover:bg-red-500 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
+                        <button @click="$refs.child.showModal(post, false); confirm_post=post" class="hover:bg-blue-700 hover:text-white px-2 rounded-full border border-blue-500" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
+                        <button @click="$refs.child.showModal(post, true); confirm_post=post" class="hover:bg-red-700 ml-auto px-2 hover:text-white rounded-full border border-red-500" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
                       </div>
                       <nuxt-link :to='`/posts/${post.id}`'>
                         <rateBar :agree_rate="$agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="$disagree_rate(post.agree_count, post.disagree_count)"/>
@@ -123,16 +123,18 @@ export default {
               .filter((v) => v.is_published)
               .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
       }
-    } catch {
+    } catch (error) {
       console.log(error)
     }
   },
+
   data() {
     return {
       showCreateForm: false,
       confirm_post: null
     }
   },
+  
   methods: {
     async getPosts() {
       try {

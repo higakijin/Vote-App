@@ -61,7 +61,7 @@
     </nav>
     <div class="w-full mt-3">
       <div v-if="name" class="text-right mr-10">
-        {{ name }} としてログイン中
+        <span @click="getCurrentUserPage()" class="cursor-pointer">{{ name }}</span> としてログイン中
       </div>
       <div v-else class="text-right mr-10">
         ログインしていません
@@ -113,6 +113,7 @@ export default {
         this.$router.push('/users/auth')
       }
     },
+
     calculateWindowWidth() {
       this.windowWidth = window.innerWidth
       if (this.windowWidth <= 1024) {
@@ -121,6 +122,19 @@ export default {
         this.isEnable = true
       }
     },
+
+    async getCurrentUserPage() {
+      try {
+        const res = await this.$axios.$post('/api/check_current_user', {
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client')
+        })
+        this.$router.push(`/users/${res.id}`)
+      } catch(error) {
+        console.log(error)
+      }
+    }
   },
   mounted () {
     this.name = window.localStorage.getItem('name')

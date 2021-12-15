@@ -5,7 +5,8 @@
       <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4">
         <section class="text-gray-600 body-font overflow-hidden">
-          <div class="container px-5 pt-32 pb-12 mx-auto">
+          <div class="container px-5 pt-24 pb-12 mx-auto">
+            <h1 class="my-8 text-4xl text-black font-mono">下書き一覧</h1>
             <div v-if="!posts.length">
               <p>下書きはありません。</p>
             </div>
@@ -14,7 +15,7 @@
                 <div class="py-8 flex flex-wrap md:flex-nowrap">
                   <div class='w-full'>
                     <div class="md:mb-0 flex flex-row">
-                      <p class="font-semibold title-font text-gray-700">{{ post.name }}</p>
+                      <p class="font-semibold title-font text-gray-700"><nuxt-link :to='`/users/${post.user_id}`'>{{ post.name }}</nuxt-link></p>
                     </div>
                     <div class="md:flex-grow">
                       <h2 class="text-xl font-medium text-gray-900 title-font mb-2">
