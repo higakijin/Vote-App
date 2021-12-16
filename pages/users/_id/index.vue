@@ -13,9 +13,13 @@
         <section class="text-gray-600 body-font overflow-hidden">
           <Lists :posts="posts" @getPosts="getPosts()" />
         </section>
-
       </div>
-      <div class="col-span-7 xl:col-span-2 lg:col-span-2">
+      <div class="col-span-7 xl:col-span-2 lg:col-span-2 ml-16">
+        <div class="xl:fixed lg:fixed xl:top-60 lg:top-60 w-60">
+          <h2 class="text-xl font-mono">{{ user.name }}</h2>
+          <p class="text-sm text-gray-400 xl:text-right lg:text-right mt-1">{{ user.created_at | moment2 }}~</p>
+          <h3 class="text-gray-500 text-lg italic my-3">{{ user.introduction }}</h3>
+        </div>
         <createForm />
       </div>
     </div>
@@ -24,9 +28,9 @@
 </template>
 
 <script>
-import Navbar from '../../components/Navbar.vue'
-import createForm from '../../components/createForm.vue'
-import Lists from '../../components/posts/Lists.vue'
+import Navbar from '../../../components/Navbar.vue'
+import createForm from '../../../components/createForm.vue'
+import Lists from '../../../components/posts/Lists.vue'
 
 export default {
   components: { Navbar, createForm, Lists },
