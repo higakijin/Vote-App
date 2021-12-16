@@ -276,10 +276,10 @@
 </template>
 
 <script>
-import Navbar from '../../components/Navbar.vue'
-import rateBar from '../../components/rateBar.vue'
-import createForm from '../../components/createForm.vue'
-import confirmModal from '../../components/confirmModal.vue'
+import Navbar from '../../../components/Navbar.vue'
+import rateBar from '../../../components/rateBar.vue'
+import createForm from '../../../components/createForm.vue'
+import confirmModal from '../../../components/confirmModal.vue'
 
 export default {
   components: { Navbar, createForm, rateBar, confirmModal },
