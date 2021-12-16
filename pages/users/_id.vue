@@ -54,14 +54,11 @@ export default {
     async getPosts() {
       try {
         const res = await this.$axios.$get(`/api/users/${Number(this.$route.params.id)}`)
-        if (!res) {
-          new Error('メッセージを取得できませんでした。')
-        }
         this.posts = res.posts
                     .filter((v) => v.is_published)
                     .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
       } catch(error) {
-        console.log(error);
+        this.error = "ユーザーの詳細投稿の取得に失敗しました。"
       }
     }
   }

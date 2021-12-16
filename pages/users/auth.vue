@@ -128,7 +128,6 @@ export default {
         }
         return res
       } catch (error) {
-        console.log(error)
         this.error = 'サインアップできませんでした。'
       }
     }

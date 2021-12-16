@@ -69,6 +69,9 @@
       <div v-else class="text-right mr-10">
         ログインしていません
       </div>
+      <div class="text-red-500 flex justify-end mr-10">
+        {{ error }}
+      </div>
     </div>
   </div>
 </template>
@@ -86,7 +89,6 @@ export default {
   },
   methods: {
     async logout () {
-      this.error = null
       try {
         const res = await this.$axios.delete('/auth/sign_out', {
           headers: {
@@ -95,9 +97,6 @@ export default {
             client: window.localStorage.getItem('client')
           }
         })
-        if (!res) {
-          new Error('ログアウトできませんでした。')
-        }
         if (!this.error) {
           window.localStorage.removeItem('access-token')
           window.localStorage.removeItem('client')
@@ -105,10 +104,8 @@ export default {
           window.localStorage.removeItem('name')
           this.$router.push('/users/auth')
         }
-        this.error = null
         return res
       } catch (error)  {
-        this.error = 'ログアウトできませんでした。'
         window.localStorage.removeItem('access-token')
         window.localStorage.removeItem('client')
         window.localStorage.removeItem('uid')
@@ -134,8 +131,8 @@ export default {
           client: window.localStorage.getItem('client')
         })
         this.$router.push(`/users/${res.id}`)
-      } catch(error) {
-        console.log(error)
+      } catch (error) {
+        this.error = "サーバーとの通信に失敗しました。"
       }
     }
   },

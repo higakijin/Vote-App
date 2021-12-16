@@ -113,7 +113,8 @@ export default {
         }) 
         this.getPosts()
       } catch (error) {
-        console.log(error)
+        this.error = "投稿を公開できませんでした。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
       }
     },
 
@@ -127,15 +128,12 @@ export default {
             post: {id: post.id},
           }
         })
+        this.getPosts()
       } catch (error) {
-        console.log(error)
+        this.error = "投稿を削除できませんでした。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
       }
-      this.getPosts()
     }
   },
 }
 </script>
-
-<style scoped>
-
-</style>

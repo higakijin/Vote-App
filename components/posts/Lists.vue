@@ -1,5 +1,8 @@
 <template>
   <div class="container px-5 pb-12 mx-auto">
+    <div class="text-red-500 my-5 text-lg">
+      {{ error}}
+    </div>
     <div class="-my-8 divide-y-2 divide-gray-100">
       <div v-for='post in posts' :key='post.id'>
         <div class="py-8 flex flex-wrap md:flex-nowrap">
@@ -102,7 +105,8 @@ export default {
 
   data() {
     return {
-      confirm_post: null
+      confirm_post: null,
+      error: null
     }
   },
 
@@ -119,9 +123,9 @@ export default {
           }
         })
         this.$emit("getPosts")
-        this.$
       } catch(error) {
-        console.log(error)
+        this.error = "投票に失敗しました。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
       }
     },
 
@@ -141,7 +145,8 @@ export default {
           this.$emit("getPosts")
         }
       } catch (error) {
-        console.log(error)
+        this.error = "いいねできませんでした。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
       }
     },
 
@@ -159,7 +164,8 @@ export default {
         })
         this.$emit("getPosts")
       } catch (error) {
-        console.log(error)
+        this.error = "いいねを解除できませんでした。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
       }
     },
 

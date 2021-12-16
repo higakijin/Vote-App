@@ -119,7 +119,6 @@ export default {
         this.error = null
         return res
       } catch(error) {
-        console.log(error);
         this.error = '投稿できませんでした'
       }
     }

@@ -4,6 +4,7 @@
     <div class="grid grid-cols-7 gap-4">
       <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4 pt-36 mx-5 pb-12">
+        <div class="text-red-500 mx-2 mb-2">{{ error }}</div>
         <div class="grid grid-cols-7">
           <div class="col-span-7 xl:col-span-6 lg:col-span-6 flex">
             <svg class="w-10 h-10 my-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
@@ -301,7 +302,8 @@ export default {
   data() {
     return {
       comment: '',
-      isMyPost: false
+      isMyPost: false,
+      error: null
     }
   },
 
@@ -312,7 +314,6 @@ export default {
         this.post = res
         this.total_votes = this.post.agree_count + this.post.disagree_count
       } catch (error) {
-        console.log(error)
         this.post = []
         this.total_votes = null
       }
@@ -331,28 +332,33 @@ export default {
         })
         this.getPost()
       } catch(error) {
-        console.log(error)
+        this.error = "投票に失敗しました。"
       }
     },
     
     async createComment(post) {
-      const res = await this.$axios.$post(`/api/posts/${post.id}/comments`, {
-        uid: window.localStorage.getItem('uid'),
-        "access-token": window.localStorage.getItem('access-token'),
-        client: window.localStorage.getItem('client'),
-        post: {
-          id: post.id,
-        },
-        comment: {
-          body: this.comment,
-        }
-      })
-      this.getPost()
-      this.comment = ""
-      // ページ最下部へスクロール
-      const elm = document.documentElement
-      const bottom = elm.scrollHeight - elm.clientHeight
-      window.scroll(0, bottom)
+      try {
+        const res = await this.$axios.$post(`/api/posts/${post.id}/comments`, {
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            id: post.id,
+          },
+          comment: {
+            body: this.comment,
+          }
+        })
+        this.getPost()
+        this.comment = ""
+        // ページ最下部へスクロール
+        const elm = document.documentElement
+        const bottom = elm.scrollHeight - elm.clientHeight
+        window.scroll(0, bottom)
+      } catch (error) {
+        this.error = "コメントの投稿に失敗しました。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
+      }
     },
 
     async deletePost(post) {
@@ -365,10 +371,10 @@ export default {
             post: {id: post.id},
           }
         })
+        this.$router.push('/')
       } catch (error) {
-        console.log(error)
+        this.error = "投稿を削除できませんでした。"
       }
-      this.$router.push('/')
     },
 
     already_liked(likes) {
@@ -402,7 +408,7 @@ export default {
           this.getPost()
         }
       } catch (error) {
-        console.log(error)
+        this.error = "いいねできませんでした。"
       }
     },
 
@@ -420,7 +426,7 @@ export default {
         })
         this.getPost()
       } catch (error) {
-        console.log(error)
+        this.error = "いいねを解除できませんでした。"
       }
     },
 
@@ -440,7 +446,8 @@ export default {
         }
         this.getPost()
       } catch(error) {
-        console.log(error)
+        this.error = "いいねできませんでした。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
       }
     },
 
@@ -458,7 +465,8 @@ export default {
         })
         this.getPost()
       } catch (error) {
-        console.log(error)
+        this.error = "いいねを解除できませんでした。"
+        window.scrollTo({ top: 0, behavior: 'smooth'})
       }
     }
   },
