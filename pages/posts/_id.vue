@@ -2,19 +2,8 @@
   <div class='relative'>
     <Navbar />
     <div class="grid grid-cols-7 gap-4">
-      <div class="col-span-7 xl:col-span-1 lg:col-span-1">
-        <svg class="w-10 h-10" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
-          <style type="text/css">
-            .st0{fill:#4B4B4B;}
-          </style>
-          <g>
-            <path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
-              c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
-              l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z" style="fill: rgb(75, 75, 75);"></path>
-          </g>
-        </svg>
-      </div>
-      <div class="col-span-7 xl:col-span-4 lg:col-span-4 xl:pt-36 lg:pt-36 pt-24 mx-5 pb-12">
+      <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
+      <div class="col-span-7 xl:col-span-4 lg:col-span-4 pt-36 mx-5 pb-12">
         <div class="grid grid-cols-7">
           <div class="col-span-7 xl:col-span-6 lg:col-span-6 flex">
             <svg class="w-10 h-10 my-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
@@ -92,12 +81,12 @@
         </div>
         <rateBar :agree_rate="$agree_rate(post.agree_count, post.disagree_count)" :disagree_rate="$disagree_rate(post.agree_count, post.disagree_count)"/>
         <div class="flex items-center mt-2">
-          <p class="font-semibold title-font text-gray-700mr-3">by {{ post.name }}</p>
-          <p class="mt-1 text-gray-500 text-sm ml-auto">{{ post.created_at | moment }}</p>
+          <p class="font-semibold title-font text-gray-700 mr-3 text-sm"><nuxt-link :to='`/users/${post.user_id}`'>by {{ post.name }}</nuxt-link></p>
+          <p class="mt-1 text-gray-500 ml-auto text-xs">{{ post.created_at | moment }}</p>
         </div>
         <div v-show="$isLogin()" class="mt-5 flex w-full gap-x-4 mb-20">
-          <button @click='$refs.child.showModal(post, false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
-          <button @click='$refs.child.showModal(post, true)' class="w-11/12 border border-red-500 rounded-md hover:bg-red-500 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
+          <button @click='$refs.child.showModal(post, false)' class="w-11/12 border border-blue-500 rounded-md hover:bg-blue-700 hover:text-white" :class="$already_posted(post.votes, false) ? 'text-white bg-blue-500': 'text-blue-500'">No</button>
+          <button @click='$refs.child.showModal(post, true)' class="w-11/12 border border-red-500 rounded-md hover:bg-red-700 hover:text-white" :class="$already_posted(post.votes, true) ? 'text-white bg-red-500': 'text-red-500'">Yes</button>
         </div>
         <div v-for="created_comment in post.comments" :key="created_comment.id">
           <div v-if="created_comment.is_agree">
@@ -171,7 +160,7 @@
                 </div>
               </div>
               <div class="flex">
-                <p class="my-auto pl-5 text-sm">{{ created_comment.name }}</p>
+                <p class="my-auto pl-5 text-sm"><nuxt-link :to='`/users/${created_comment.user_id}`'>{{ created_comment.name }}</nuxt-link></p>
               </div>
             </div>
           </div>
@@ -179,7 +168,7 @@
           <div v-else>
             <div class="mt-5 flex">
               <div class="flex">
-                <p class="my-auto pr-5 text-sm">{{ created_comment.name }}</p>
+                <p class="my-auto pr-5 text-sm"><nuxt-link :to='`/users/${created_comment.user_id}`'>{{ created_comment.name }}</nuxt-link></p>
               </div>
               <div class="flex">
                 <div class="balloon-left">
