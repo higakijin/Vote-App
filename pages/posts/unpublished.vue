@@ -91,9 +91,6 @@ export default {
     async getPosts() {
       try {
         const res = await this.$axios.$get('/api/posts')
-        if (!res) {
-          new Error('メッセージを取得できませんでした。')
-        }
         this.posts = res
                     .filter((v) => !v.is_published)
                     .filter((v) => v.uid === window.localStorage.getItem('uid'))
