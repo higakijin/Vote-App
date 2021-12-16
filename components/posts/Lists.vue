@@ -1,6 +1,7 @@
 <template>
   <div class="container px-5 pb-12 mx-auto">
     <div class="-my-8 divide-y-2 divide-gray-100">
+      <div v-show="!posts">投稿がありません。</div>
       <div v-for='post in posts' :key='post.id'>
         <div class="py-8 flex flex-wrap md:flex-nowrap">
           <div class='w-full'>
