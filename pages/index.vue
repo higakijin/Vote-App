@@ -5,7 +5,7 @@
       <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4">
         <section class="text-gray-600 body-font overflow-hidden pt-32">
-          <div class="text-red-500">{{ error }}</div>
+          <div class="text-red-500 mx-5 xl:mx-0 lg:mx-0">{{ error }}</div>
           <Lists :posts="posts" @getPosts="getPosts()" />
         </section>
       </div>
