@@ -290,8 +290,11 @@ export default {
         post: res,
         total_votes: res.agree_count + res.disagree_count
       }
-    } catch {
-      console.log(error)
+    } catch (error) {
+      return {
+        post: [],
+        total_votes: null,
+      }
     }
   },
 
@@ -306,13 +309,12 @@ export default {
     async getPost() {
       try {
         const res = await this.$axios.$get(`/api/posts/${this.$route.params.id}`)
-        if (!res) {
-          new Error('メッセージを取得できませんでした。')
-        }
         this.post = res
         this.total_votes = this.post.agree_count + this.post.disagree_count
       } catch (error) {
         console.log(error)
+        this.post = []
+        this.total_votes = null
       }
     },
 

@@ -5,6 +5,7 @@
       <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4">
         <section class="text-gray-600 body-font overflow-hidden pt-32">
+          <div class="text-red-500">{{ error }}</div>
           <Lists :posts="posts" @getPosts="getPosts()" />
         </section>
       </div>
@@ -23,17 +24,22 @@ import Lists from '../components/posts/Lists.vue'
 
 export default {
   components: { Navbar, createForm, Lists },
-  
+
   async asyncData(context) {
     try {
       const res = await context.$axios.$get('/api/posts')
       return { 
         posts: res
               .filter((v) => v.is_published)
-              .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
+              .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) }),
+        error: null
+        
       }
     } catch (error) {
-      console.log(error)
+      return {
+        posts: null,
+        error: "投稿の取得に失敗しました。" + error
+      }
     }
   },
 
@@ -41,14 +47,12 @@ export default {
     async getPosts() {
       try {
         const res = await this.$axios.$get('/api/posts')
-        if (!res) {
-          new Error('メッセージを取得できませんでした。')
-        }
         this.posts = res
                     .filter((v) => v.is_published)
                     .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
       } catch(error) {
-        console.log(error);
+        this.posts = null,
+        this.error = "投稿の取得に失敗しました。" + error
       }
     },
 

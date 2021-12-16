@@ -5,9 +5,12 @@
       <div class="col-span-7 xl:col-span-1 lg:col-span-1"></div>
       <div class="col-span-7 xl:col-span-4 lg:col-span-4">
         <section class="text-gray-600 body-font overflow-hidden">
-          <div class="container px-5 pt-24 pb-12 mx-auto">
+          <div class="container px-5 pt-28 pb-12 mx-auto">
             <h1 class="my-8 text-4xl text-black font-mono">下書き一覧</h1>
-            <div v-if="!posts.length">
+            <div v-if="error" class="text-red-500">
+              {{ error }}
+            </div>
+            <div v-else-if="!posts.length">
               <p>下書きはありません。</p>
             </div>
             <div v-else class="-my-8 divide-y-2 divide-gray-100">
@@ -57,10 +60,14 @@ export default {
       return { 
         posts: res
               .filter((v) => !v.is_published )
-              .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) }) 
+              .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) }),
+        error: null
       }
-    } catch {
-      console.log(error)
+    } catch (error) {
+      return {
+        posts: [],
+        error: "下書きの取得に失敗しました。" + error
+      }
     }
   },
 
@@ -92,7 +99,8 @@ export default {
                     .filter((v) => v.uid === window.localStorage.getItem('uid'))
                     .sort(function(a, b){ return (a.created_at < b.created_at ? 1 : -1) })
       } catch(error) {
-        console.log(error);
+        this.posts = []
+        this.error = "下書きの取得に失敗しました。" + error
       }
     },
 
