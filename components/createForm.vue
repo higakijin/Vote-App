@@ -95,9 +95,6 @@ export default {
             published: this.isForPublic
           },
         })
-        if (!res) {
-          new Error('投稿できませんでした')
-        }
         if (!this.error) {
           if (!this.isForPublic){
             if (this.$route.path === '/posts/unpublished') {
