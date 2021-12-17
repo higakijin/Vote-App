@@ -36,6 +36,7 @@ Railsを普通に勉強していたときに、タグの絞り込み機能やビ
 Vuetifyと併用ができなくてショックでした。
 
 # ER図
+あとで書きます。
 
 # アイコン
 - [IFN無料アイコン](https://illustration-free.net/)
