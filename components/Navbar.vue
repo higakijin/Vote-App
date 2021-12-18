@@ -28,28 +28,12 @@
       </div>
       <div v-show="isEnable" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-          <!-- <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-            Docs
-          </a>
-          <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-            Examples
-          </a>
-          <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-            Blog
-          </a> -->
-          <nuxt-link to="/posts/ranking"  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :class="this.$route.path==='/posts/ranking' ? 'text-white' : '' ">
+          <nuxt-link to="/posts/ranking"  class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" :class="this.$route.path==='/posts/ranking' ? 'text-white' : '' ">
             ランキング
           </nuxt-link>
-          <nuxt-link v-show="$isLogin()" to="/posts/unpublished" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' ">
+          <nuxt-link v-show="$isLogin()" to="/posts/unpublished" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' ">
             下書き
           </nuxt-link>
-
-          <!-- <router-link to="/posts/unpublished"
-            class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' "
-          >
-            下書き一覧
-          </router-link>  -->
         </div>
 
         <div v-show="$isLogin()">
@@ -84,7 +68,8 @@ export default {
       error: null,
       isEnable: true,
 
-      windowWidth: 0
+      windowWidth: 0,
+      keyword: null
     }
   },
   methods: {
@@ -134,13 +119,19 @@ export default {
       } catch (error) {
         this.error = "サーバーとの通信に失敗しました。"
       }
+    },
+
+    computed: {
+
     }
   },
+
   mounted () {
     this.name = window.localStorage.getItem('name')
     this.calculateWindowWidth()
     window.addEventListener('resize', this.calculateWindowWidth)
   },
+
   beforeDestroy() {
     window.removeEventListener('resize', this.calculateWindowWidth)
   }
