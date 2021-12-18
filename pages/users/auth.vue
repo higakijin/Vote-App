@@ -9,19 +9,21 @@
               画面上の戦いへ。いますぐ始めよう。
               <br>未登録なら<span @click="showLogin = false" class="text-blue-700 underline cursor-pointer">こちら</span>をクリック
             </p>
-            <nuxt-link to="/" class="inline-block mt-4 flex">
-              <svg class="bg-green-500 rounded-full h-12 w-12 items-center justify-center p-2 ml-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
-                <style type="text/css">
-                  .st0{fill:#4B4B4B;}
-                </style>
-                <g>
-                  <polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453 
-                    109.406,258.031 207.156,160.281 256,111.438 304.844,160.281 402.531,257.984 472.016,327.453 512,287.469 	" style="fill: #ffffff"></polygon>
-                  <polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531 
-                    426.281,480.531 426.281,330.328 256.016,160.063 	" style="fill: #ffffff"></polygon>
-                </g>
-              </svg>
-            </nuxt-link>
+            <div class="flex">
+              <nuxt-link to="/" class="mt-4 ml-auto">
+                <svg class="bg-green-500 rounded-full h-12 w-12 items-center justify-center p-2" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                  <style type="text/css">
+                    .st0{fill:#4B4B4B;}
+                  </style>
+                  <g>
+                    <polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453 
+                      109.406,258.031 207.156,160.281 256,111.438 304.844,160.281 402.531,257.984 472.016,327.453 512,287.469 	" style="fill: #ffffff"></polygon>
+                    <polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531 
+                      426.281,480.531 426.281,330.328 256.016,160.063 	" style="fill: #ffffff"></polygon>
+                  </g>
+                </svg>
+              </nuxt-link>
+            </div>
           </div>
           <form @submit.prevent="login" class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
             <h2 class="text-gray-900 text-lg font-medium title-font mb-5 font-bold">ログイン</h2>
@@ -50,19 +52,21 @@
             <div class="leading-relaxed mt-4">
               <p>登録してあなたの疑問を解消しましょう。</p>
               <p>登録済なら<span @click="showLogin = true" class="text-blue-700 underline cursor-pointer">こちら</span>をクリック</p>
-              <nuxt-link to="/" class="inline-block mt-4 flex">
-                <svg class="bg-green-500 rounded-full h-12 w-12 items-center justify-center p-2 ml-auto" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
-                  <style type="text/css">
-                    .st0{fill:#4B4B4B;}
-                  </style>
-                  <g>
-                    <polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453 
-                      109.406,258.031 207.156,160.281 256,111.438 304.844,160.281 402.531,257.984 472.016,327.453 512,287.469 	" style="fill: #ffffff"></polygon>
-                    <polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531 
-                      426.281,480.531 426.281,330.328 256.016,160.063 	" style="fill: #ffffff"></polygon>
-                  </g>
-                </svg>
-              </nuxt-link>
+              <div class="flex">
+                <nuxt-link to="/" class="mt-4 ml-auto">
+                  <svg class="bg-green-500 rounded-full h-12 w-12 items-center justify-center p-2" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                    <style type="text/css">
+                      .st0{fill:#4B4B4B;}
+                    </style>
+                    <g>
+                      <polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453 
+                        109.406,258.031 207.156,160.281 256,111.438 304.844,160.281 402.531,257.984 472.016,327.453 512,287.469 	" style="fill: #ffffff"></polygon>
+                      <polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531 
+                        426.281,480.531 426.281,330.328 256.016,160.063 	" style="fill: #ffffff"></polygon>
+                    </g>
+                  </svg>
+                </nuxt-link>
+              </div>
             </div>
           </div>
           <form @submit.prevent="signUp" class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-5 md:mt-0">
