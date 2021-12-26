@@ -119,10 +119,6 @@ export default {
       } catch (error) {
         this.error = "サーバーとの通信に失敗しました。"
       }
-    },
-
-    computed: {
-
     }
   },
 
