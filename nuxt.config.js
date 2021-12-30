@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'VoteApp',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -22,6 +22,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/moment-filter.js',
+    '@/plugins/common.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,9 +35,29 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    "@nuxtjs/axios",
   ],
+
+  axios: {
+    baseURL: process.env.API_URL
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  buildModules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/moment'
+  ],
+
+  moment: {
+    locales: ['ja']
+  },
+  
+
+  //これ不要かも
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL|| "http://localhost:3000",
   }
 }
